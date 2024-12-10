@@ -11,6 +11,13 @@
     <h1>Bem-vindo ao meu PWA</h1>
     <p>Adicione à tela inicial para uma experiência mais fluida.</p>
 
+    <!-- Campo para digitar o nome e botão de salvar -->
+    <label for="userName">Digite seu nome:</label>
+    <input type="text" id="userName" placeholder="Digite seu nome aqui" />
+    <button id="saveButton">Salvar</button>
+
+    <br><br>
+
     <!-- Botão de instalação que será mostrado quando o prompt estiver disponível -->
     <button id="installButton" style="display: none;">Adicionar à Tela Inicial</button>
 
@@ -20,10 +27,11 @@
 
       // Captura o evento 'beforeinstallprompt'
       window.addEventListener('beforeinstallprompt', (e) => {
-        // Previne o comportamento padrão do navegador
-        console.log('beforeinstallprompt disparado');
-        e.preventDefault();
+        console.log('beforeinstallprompt disparado');  // Verifique se isso aparece no console
 
+        // Previne o comportamento padrão do navegador
+        e.preventDefault();
+        
         // Armazena o evento para usá-lo mais tarde
         deferredPrompt = e;
 
@@ -44,7 +52,7 @@
             deferredPrompt = null;  // Limpa o evento após o uso
             installButton.style.display = 'none'; // Esconde o botão após a interação
 
-            // Após a escolha, redireciona para o Linktree (se necessário)
+            // Após a escolha, você pode fazer algo dependendo do resultado
             if (choiceResult.outcome === 'accepted') {
               console.log('Usuário aceitou a instalação');
             } else {
@@ -52,6 +60,17 @@
             }
           });
         });
+      });
+
+      // Adiciona interatividade ao campo de nome e botão de salvar
+      const saveButton = document.getElementById('saveButton');
+      saveButton.addEventListener('click', () => {
+        const userName = document.getElementById('userName').value;
+        if (userName) {
+          console.log(`Nome salvo: ${userName}`);
+          // Após salvar o nome, você pode garantir que a interação foi suficiente
+          // Isso pode ajudar a disparar o evento 'beforeinstallprompt'
+        }
       });
 
       // Registra o Service Worker
