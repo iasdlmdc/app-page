@@ -40,6 +40,11 @@
             console.log(choiceResult.outcome); // Resultado da escolha do usuário (aceitou ou recusou)
             deferredPrompt = null; // Limpa a variável após a escolha
             installButton.style.display = 'none'; // Opcional: esconde o botão após a interação
+
+            // Após a escolha, redireciona para o Linktree
+            if (choiceResult.outcome === 'accepted') {
+              window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
+            }
           });
         });
       });
@@ -54,9 +59,6 @@
             console.log('Falha ao registrar o Service Worker:', error);
           });
       }
-
-      // Redireciona para o Linktree
-      window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
     </script>
   </body>
 </html>
