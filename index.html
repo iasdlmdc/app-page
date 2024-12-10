@@ -14,15 +14,21 @@
     <link rel="apple-touch-icon" href="/app-page/icon.png">
 
     <meta name="theme-color" content="#4CAF50">
+    
+    <!-- Certifique-se de que a página não será tratada como uma PWA -->
+    <meta name="mobile-web-app-capable" content="no">
   </head>
   <body>
     <script type="text/javascript">
+      // A página não vai registrar o service worker, já que estamos removendo essa configuração
+
       // Manipulando o evento beforeinstallprompt
       let deferredPrompt;
       const installButton = document.createElement('button');
       installButton.textContent = 'Adicionar à tela inicial';
       document.body.appendChild(installButton);
 
+      // Desabilita a instalação como PWA (se estiver configurado para PWA)
       window.addEventListener('beforeinstallprompt', (e) => {
         // Impede que o navegador mostre o prompt automaticamente
         e.preventDefault();
