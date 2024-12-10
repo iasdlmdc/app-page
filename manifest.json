@@ -1,7 +1,7 @@
 {
   "name": "Linktree - Leônidas Moreira",
   "short_name": "IASD LM",
-  "start_url": "https://linktr.ee/iasdlm.dc/inicio", 
+  "start_url": "https://linktr.ee/iasdlm.dc", 
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#4CAF50",
