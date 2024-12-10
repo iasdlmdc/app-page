@@ -4,24 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Linktree</title>
-    <link rel="manifest" href="/app-page/manifest.json">
+
+    <!-- Definindo o nome do atalho -->
+    <meta name="apple-mobile-web-app-title" content="IASD LM">
+    <meta name="application-name" content="IASD LM">
+
+    <!-- Definindo o ícone para o atalho -->
+    <link rel="icon" href="/app-page/icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="/app-page/icon.png">
+
     <meta name="theme-color" content="#4CAF50">
   </head>
   <body>
     <script type="text/javascript">
-      // Registrar o Service Worker
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/app-page/service-worker.js')  // Caminho correto do seu service-worker.js
-            .then((registration) => {
-              console.log('Service Worker registrado com sucesso:', registration);
-            })
-            .catch((error) => {
-              console.log('Erro ao registrar o Service Worker:', error);
-            });
-        });
-      }
-
       // Manipulando o evento beforeinstallprompt
       let deferredPrompt;
       const installButton = document.createElement('button');
@@ -51,10 +46,8 @@
             deferredPrompt = null;
             installButton.style.display = 'none';  // Esconde o botão após a escolha do usuário
 
-            // Adicionando um pequeno delay antes do redirecionamento
-            setTimeout(() => {
-              window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
-            }, 1000); // Delay de 1 segundo (ajuste conforme necessário)
+            // Redireciona para o Linktree
+            window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
           });
         });
       });
