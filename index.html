@@ -7,28 +7,30 @@
 
     <!-- Definindo o nome do atalho -->
     <meta name="apple-mobile-web-app-title" content="IASD LM">
-    <meta name="application-name" content="IASD LM">
+    <meta name="application-name" content="IASD Leônidas Moreira">
 
     <!-- Definindo o ícone para o atalho -->
     <link rel="icon" href="/app-page/icon.png" type="image/png">
     <link rel="apple-touch-icon" href="/app-page/icon.png">
 
     <meta name="theme-color" content="#4CAF50">
-    
-    <!-- Certifique-se de que a página não será tratada como uma PWA -->
+
+    <!-- A página não será registrada como uma PWA -->
     <meta name="mobile-web-app-capable" content="no">
   </head>
   <body>
-    <script type="text/javascript">
-      // A página não vai registrar o service worker, já que estamos removendo essa configuração
+    <h1>Bem-vindo ao Meu Linktree</h1>
 
-      // Manipulando o evento beforeinstallprompt
+    <script type="text/javascript">
+      // Variável para controlar o prompt de instalação
       let deferredPrompt;
+
+      // Criação do botão para adicionar à tela inicial
       const installButton = document.createElement('button');
       installButton.textContent = 'Adicionar à tela inicial';
       document.body.appendChild(installButton);
 
-      // Desabilita a instalação como PWA (se estiver configurado para PWA)
+      // Evento 'beforeinstallprompt' para controle do botão
       window.addEventListener('beforeinstallprompt', (e) => {
         // Impede que o navegador mostre o prompt automaticamente
         e.preventDefault();
@@ -51,11 +53,14 @@
             }
             deferredPrompt = null;
             installButton.style.display = 'none';  // Esconde o botão após a escolha do usuário
-
-            // Redireciona para o Linktree
-            window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
           });
         });
+      });
+
+      // Adiciona comportamento de redirecionamento ao clicar no atalho
+      window.addEventListener('load', () => {
+        // Redireciona para o Linktree diretamente
+        window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
       });
     </script>
   </body>
