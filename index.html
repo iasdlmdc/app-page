@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Linktree</title>
-    <!-- Ajustando o caminho do manifesto -->
     <link rel="manifest" href="/app-page/manifest.json">
     <meta name="theme-color" content="#4CAF50">
   </head>
@@ -13,7 +12,6 @@
       // Registrar o Service Worker
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          // Ajuste o caminho do service worker para estar na pasta correta
           navigator.serviceWorker.register('/app-page/service-worker.js')  // Caminho correto do seu service-worker.js
             .then((registration) => {
               console.log('Service Worker registrado com sucesso:', registration);
@@ -52,12 +50,12 @@
             }
             deferredPrompt = null;
             installButton.style.display = 'none';  // Esconde o botão após a escolha do usuário
-          });
 
-          // Redireciona para o Linktree após o prompt de instalação
-          setTimeout(() => {
-            window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
-          }, 500);
+            // Adicionando um pequeno delay antes do redirecionamento
+            setTimeout(() => {
+              window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
+            }, 1000); // Delay de 1 segundo (ajuste conforme necessário)
+          });
         });
       });
     </script>
