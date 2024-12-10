@@ -3,7 +3,7 @@
   "short_name": "IASD LM",
   "icons": [
     {
-      "src": "C:\Users\wsilva\3D Objects\html\logo.png",  // Insira o caminho para o ícone
+      "src": "logo.png",  // Insira o caminho para o ícone
       "sizes": "192x192",
       "type": "image/png"
     }
