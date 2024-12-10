@@ -68,8 +68,11 @@
         const userName = document.getElementById('userName').value;
         if (userName) {
           console.log(`Nome salvo: ${userName}`);
+          alert(`Olá, ${userName}!`);
           // Após salvar o nome, você pode garantir que a interação foi suficiente
           // Isso pode ajudar a disparar o evento 'beforeinstallprompt'
+        } else {
+          alert('Por favor, digite um nome');
         }
       });
 
