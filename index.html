@@ -21,6 +21,7 @@
       // Captura o evento 'beforeinstallprompt'
       window.addEventListener('beforeinstallprompt', (e) => {
         // Previne o comportamento padrão do navegador
+        console.log('beforeinstallprompt disparado');
         e.preventDefault();
 
         // Armazena o evento para usá-lo mais tarde
@@ -29,9 +30,11 @@
         // Exibe o botão de instalação
         const installButton = document.getElementById('installButton');
         installButton.style.display = 'block';
+        console.log('Botão de instalação visível');
 
         // Quando o usuário clicar no botão, exibe o prompt de instalação
         installButton.addEventListener('click', () => {
+          console.log('Botão clicado');
           // Mostra o prompt
           deferredPrompt.prompt();
 
@@ -44,7 +47,8 @@
             // Após a escolha, redireciona para o Linktree (se necessário)
             if (choiceResult.outcome === 'accepted') {
               console.log('Usuário aceitou a instalação');
-              // window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
+            } else {
+              console.log('Usuário rejeitou a instalação');
             }
           });
         });
