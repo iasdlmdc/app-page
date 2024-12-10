@@ -26,7 +26,7 @@
         // Armazena o evento para usá-lo mais tarde
         deferredPrompt = e;
 
-        // Torna o botão de instalação visível
+        // Exibe o botão de instalação
         const installButton = document.getElementById('installButton');
         installButton.style.display = 'block';
 
@@ -37,14 +37,13 @@
 
           // Aguarda a resposta do usuário
           deferredPrompt.userChoice.then((choiceResult) => {
-            console.log(choiceResult.outcome); // Resultado da escolha do usuário (aceitou ou recusou)
-            deferredPrompt = null; // Limpa a variável após a escolha
+            console.log(choiceResult.outcome); // 'accepted' ou 'dismissed'
+            deferredPrompt = null;  // Limpa o evento após o uso
             installButton.style.display = 'none'; // Esconde o botão após a interação
 
-            // Após a escolha, redireciona para o Linktree
+            // Após a escolha, redireciona para o Linktree (se necessário)
             if (choiceResult.outcome === 'accepted') {
               console.log('Usuário aceitou a instalação');
-              // Aqui você pode adicionar o redirecionamento para o Linktree se desejar
               // window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
             }
           });
@@ -61,6 +60,15 @@
             console.log('Falha ao registrar o Service Worker:', error);
           });
       }
+
+      // Verifique se o Service Worker foi registrado corretamente
+      window.addEventListener('load', () => {
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.ready.then(() => {
+            console.log('Service Worker está ativo e pronto!');
+          });
+        }
+      });
     </script>
   </body>
 </html>
