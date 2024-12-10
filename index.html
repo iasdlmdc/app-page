@@ -39,11 +39,13 @@
           deferredPrompt.userChoice.then((choiceResult) => {
             console.log(choiceResult.outcome); // Resultado da escolha do usuário (aceitou ou recusou)
             deferredPrompt = null; // Limpa a variável após a escolha
-            installButton.style.display = 'none'; // Opcional: esconde o botão após a interação
+            installButton.style.display = 'none'; // Esconde o botão após a interação
 
             // Após a escolha, redireciona para o Linktree
             if (choiceResult.outcome === 'accepted') {
-              window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
+              console.log('Usuário aceitou a instalação');
+              // Aqui você pode adicionar o redirecionamento para o Linktree se desejar
+              // window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
             }
           });
         });
