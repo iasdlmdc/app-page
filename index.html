@@ -9,11 +9,6 @@
   </head>
   <body>
     <script type="text/javascript">
-      // Redireciona para o Linktree
-      window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
-    </script>
-
-    <script type="text/javascript">
       // Registrar o Service Worker
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -29,16 +24,17 @@
 
       // Manipulando o evento beforeinstallprompt
       let deferredPrompt;
+      const installButton = document.createElement('button');
+      installButton.textContent = 'Adicionar à tela inicial';
+      document.body.appendChild(installButton);
 
       window.addEventListener('beforeinstallprompt', (e) => {
         // Impede que o navegador mostre o prompt automaticamente
         e.preventDefault();
         deferredPrompt = e;
 
-        // Exibe um botão ou ícone para o usuário instalar a PWA
-        const installButton = document.createElement('button');
-        installButton.textContent = 'Adicionar à tela inicial';
-        document.body.appendChild(installButton);
+        // Exibe o botão "Adicionar à tela inicial"
+        installButton.style.display = 'block';
 
         // Quando o usuário clicar no botão, exibe o prompt de instalação
         installButton.addEventListener('click', () => {
@@ -53,8 +49,13 @@
               console.log('Usuário rejeitou o prompt de instalação');
             }
             deferredPrompt = null;
-            installButton.style.display = 'none';  // Opcional: Esconde o botão após a escolha do usuário
+            installButton.style.display = 'none';  // Esconde o botão após a escolha do usuário
           });
+
+          // Redireciona para o Linktree após o prompt de instalação
+          setTimeout(() => {
+            window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
+          }, 500);
         });
       });
     </script>
