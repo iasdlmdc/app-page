@@ -8,11 +8,43 @@
     <meta name="theme-color" content="#4CAF50">
   </head>
   <body>
-    <script type="text/javascript">
-      // Redirecionamento para o Linktree
-      window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
+    <h1>Bem-vindo ao meu PWA</h1>
+    <p>Adicione à tela inicial para uma experiência mais fluida.</p>
 
-      // Verifica se o Service Worker é suportado e registra o Service Worker
+    <!-- Botão de instalação que será mostrado quando o prompt estiver disponível -->
+    <button id="installButton" style="display: none;">Adicionar à Tela Inicial</button>
+
+    <script type="text/javascript">
+      // Variável para armazenar o evento beforeinstallprompt
+      let deferredPrompt;
+
+      // Captura o evento 'beforeinstallprompt'
+      window.addEventListener('beforeinstallprompt', (e) => {
+        // Previne o comportamento padrão do navegador
+        e.preventDefault();
+
+        // Armazena o evento para usá-lo mais tarde
+        deferredPrompt = e;
+
+        // Torna o botão de instalação visível
+        const installButton = document.getElementById('installButton');
+        installButton.style.display = 'block';
+
+        // Quando o usuário clicar no botão, exibe o prompt de instalação
+        installButton.addEventListener('click', () => {
+          // Mostra o prompt
+          deferredPrompt.prompt();
+
+          // Aguarda a resposta do usuário
+          deferredPrompt.userChoice.then((choiceResult) => {
+            console.log(choiceResult.outcome); // Resultado da escolha do usuário (aceitou ou recusou)
+            deferredPrompt = null; // Limpa a variável após a escolha
+            installButton.style.display = 'none'; // Opcional: esconde o botão após a interação
+          });
+        });
+      });
+
+      // Registra o Service Worker
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('service-worker.js')
           .then(function(registration) {
@@ -22,7 +54,9 @@
             console.log('Falha ao registrar o Service Worker:', error);
           });
       }
+
+      // Redireciona para o Linktree
+      window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
     </script>
   </body>
 </html>
-
