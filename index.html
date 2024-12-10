@@ -22,11 +22,13 @@
     <button id="installButton" style="display: none;">Adicionar à Tela Inicial</button>
 
     <script type="text/javascript">
+      // Variável para armazenar o evento beforeinstallprompt
       let deferredPrompt;
 
-      // Função que lida com o evento 'beforeinstallprompt'
+      // Captura o evento 'beforeinstallprompt'
       window.addEventListener('beforeinstallprompt', (e) => {
         console.log('beforeinstallprompt disparado');  // Verifique se isso aparece no console
+
         // Previne o comportamento padrão
         e.preventDefault();
 
@@ -35,7 +37,7 @@
 
         // Exibe o botão de instalação
         const installButton = document.getElementById('installButton');
-        installButton.style.display = 'block';  // Torna o botão visível
+        installButton.style.display = 'block';
         console.log('Botão de instalação visível');
 
         // Quando o usuário clicar no botão, exibe o prompt
@@ -67,7 +69,7 @@
         if (userName) {
           console.log(`Nome salvo: ${userName}`);
           alert(`Olá, ${userName}!`);
-          // Após salvar o nome, você pode garantir que a interação foi suficiente
+          // Após salvar o nome, isso deve garantir que a interação seja suficiente
           // Isso pode ajudar a disparar o evento 'beforeinstallprompt'
         } else {
           alert('Por favor, digite um nome');
