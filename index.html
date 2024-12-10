@@ -1,100 +1,13 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+html
+<html>
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Linktree</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#4CAF50">
   </head>
   <body>
-    <h1>Bem-vindo ao meu PWA</h1>
-    <p>Adicione à tela inicial para uma experiência mais fluida.</p>
-
-    <!-- Campo para digitar o nome e botão de salvar -->
-    <label for="userName">Digite seu nome:</label>
-    <input type="text" id="userName" placeholder="Digite seu nome aqui" />
-    <button id="saveButton">Salvar</button>
-
-    <br><br>
-
-    <!-- Botão de instalação que será mostrado quando o prompt estiver disponível -->
-    <button id="installButton" style="display: none;">Adicionar à Tela Inicial</button>
-
     <script type="text/javascript">
-      // Variável para armazenar o evento beforeinstallprompt
-      let deferredPrompt;
-
-      // Captura o evento 'beforeinstallprompt'
-      window.addEventListener('beforeinstallprompt', (e) => {
-        console.log('beforeinstallprompt disparado');  // Verifique se isso aparece no console
-
-        // Previne o comportamento padrão
-        e.preventDefault();
-
-        // Armazena o evento para usá-lo mais tarde
-        deferredPrompt = e;
-
-        // Exibe o botão de instalação
-        const installButton = document.getElementById('installButton');
-        installButton.style.display = 'block';
-        console.log('Botão de instalação visível');
-
-        // Quando o usuário clicar no botão, exibe o prompt
-        installButton.addEventListener('click', () => {
-          console.log('Botão clicado');
-          // Mostra o prompt
-          deferredPrompt.prompt();
-
-          // Aguarda a resposta do usuário
-          deferredPrompt.userChoice.then((choiceResult) => {
-            console.log(choiceResult.outcome); // 'accepted' ou 'dismissed'
-            deferredPrompt = null;  // Limpa o evento após o uso
-            installButton.style.display = 'none'; // Esconde o botão após a interação
-
-            // Após a escolha, você pode fazer algo dependendo do resultado
-            if (choiceResult.outcome === 'accepted') {
-              console.log('Usuário aceitou a instalação');
-            } else {
-              console.log('Usuário rejeitou a instalação');
-            }
-          });
-        });
-      });
-
-      // Adiciona interatividade ao campo de nome e botão de salvar
-      const saveButton = document.getElementById('saveButton');
-      saveButton.addEventListener('click', () => {
-        const userName = document.getElementById('userName').value;
-        if (userName) {
-          console.log(`Nome salvo: ${userName}`);
-          alert(`Olá, ${userName}!`);
-          // Após salvar o nome, isso deve garantir que a interação seja suficiente
-          // Isso pode ajudar a disparar o evento 'beforeinstallprompt'
-        } else {
-          alert('Por favor, digite um nome');
-        }
-      });
-
-      // Registra o Service Worker
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js')
-          .then(function(registration) {
-            console.log('Service Worker registrado com sucesso:', registration);
-          })
-          .catch(function(error) {
-            console.log('Falha ao registrar o Service Worker:', error);
-          });
-      }
-
-      // Verifique se o Service Worker foi registrado corretamente
-      window.addEventListener('load', () => {
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.ready.then(() => {
-            console.log('Service Worker está ativo e pronto!');
-          });
-        }
-      });
+      window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
     </script>
   </body>
 </html>
