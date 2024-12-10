@@ -22,25 +22,23 @@
     <button id="installButton" style="display: none;">Adicionar à Tela Inicial</button>
 
     <script type="text/javascript">
-      // Variável para armazenar o evento beforeinstallprompt
       let deferredPrompt;
 
-      // Captura o evento 'beforeinstallprompt'
+      // Função que lida com o evento 'beforeinstallprompt'
       window.addEventListener('beforeinstallprompt', (e) => {
         console.log('beforeinstallprompt disparado');  // Verifique se isso aparece no console
-
-        // Previne o comportamento padrão do navegador
+        // Previne o comportamento padrão
         e.preventDefault();
-        
+
         // Armazena o evento para usá-lo mais tarde
         deferredPrompt = e;
 
         // Exibe o botão de instalação
         const installButton = document.getElementById('installButton');
-        installButton.style.display = 'block';
+        installButton.style.display = 'block';  // Torna o botão visível
         console.log('Botão de instalação visível');
 
-        // Quando o usuário clicar no botão, exibe o prompt de instalação
+        // Quando o usuário clicar no botão, exibe o prompt
         installButton.addEventListener('click', () => {
           console.log('Botão clicado');
           // Mostra o prompt
