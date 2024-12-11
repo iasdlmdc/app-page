@@ -19,7 +19,7 @@
     <meta name="theme-color" content="#4CAF50">
 
     <!-- A página será registrada como PWA -->
-    <meta name="mobile-web-app-capable" content="yes">  <!-- Alterado de "no" para "yes" -->
+    <meta name="mobile-web-app-capable" content="yes">
 
   </head>
   <body>
@@ -70,14 +70,11 @@
             }
             deferredPrompt = null;
             installButton.style.display = 'none';  // Esconde o botão após a escolha do usuário
+
+            // Redireciona para o Linktree após a escolha do usuário
+            window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
           });
         });
-      });
-
-      // Adiciona comportamento de redirecionamento ao clicar no atalho
-      window.addEventListener('load', () => {
-        // Redireciona para o Linktree diretamente
-        window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
       });
     </script>
   </body>
