@@ -27,6 +27,7 @@
       background-color: #f3f3f3;
       border-radius: 5px;
       overflow: hidden;
+      margin-bottom: 20px;
     }
 
     .progress-bar-inner {
@@ -44,6 +45,30 @@
       0% { width: 0; }
       100% { width: 100%; }
     }
+
+    .arrow {
+      font-size: 50px;
+      color: green;
+      text-align: center;
+    }
+
+    .button {
+      display: block;
+      width: 200px;
+      margin: 20px auto;
+      padding: 10px;
+      background-color: red;
+      color: white;
+      text-align: center;
+      font-size: 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: darkred;
+    }
   </style>
 </head>
 <body>
@@ -51,6 +76,8 @@
   <div class="progress-bar">
     <div class="progress-bar-inner" id="progress-bar"></div>
   </div>
+  <div class="arrow">&#8595;</div>
+  <button class="button" id="install-button">Clique</button>
 
   <script>
     // Verificar se o navegador suporta Service Workers
@@ -77,7 +104,7 @@
       deferredPrompt = e;
     });
 
-    document.body.addEventListener('click', () => {
+    document.getElementById('install-button').addEventListener('click', () => {
       if (deferredPrompt) {
         console.log('Tentando exibir o prompt de instalação');
         deferredPrompt.prompt();
