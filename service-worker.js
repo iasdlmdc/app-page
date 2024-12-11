@@ -4,7 +4,7 @@ self.addEventListener('install', function(event) {
       return cache.addAll([
         '/index.html',
         '/icon.png',
-        // Adicione outras URLs necessárias aqui
+        // Adicione outras URLs necessárias aqui, certificando-se de que cada uma é correta e acessível
       ]).catch(function(error) {
         console.error('Falha ao adicionar arquivos à cache:', error);
       });
