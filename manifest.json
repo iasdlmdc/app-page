@@ -2,7 +2,7 @@
   "name": "IASD Leônidas Moreira",
   "short_name": "Leônidas",
   "start_url": "https://linktr.ee/iasdlm.dc",
-  "display": "standalone",
+  "display": "browser",
   "orientation": "portrait",
   "scope": "/",
   "icons": [
