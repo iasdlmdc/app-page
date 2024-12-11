@@ -47,7 +47,7 @@
     }
 
     .arrow {
-      font-size: 75px;
+      font-size: 50px;
       color: green;
       text-align: center;
     }
@@ -83,7 +83,7 @@
     // Verificar se o navegador suporta Service Workers
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
+        navigator.serviceWorker.register('/service-worker.js')
           .then((registration) => {
             console.log('Service Worker registrado com sucesso:', registration);
           })
@@ -125,7 +125,7 @@
         if (!deferredPrompt) {
           console.log('O evento beforeinstallprompt não foi disparado');
         }
-      }, 15000); // Ajuste o tempo conforme necessário para verificar o evento
+      }, 5000); // Ajuste o tempo conforme necessário para verificar o evento
     });
   </script>
 </body>
