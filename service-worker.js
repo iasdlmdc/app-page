@@ -5,7 +5,9 @@ self.addEventListener('install', function(event) {
         '/',
         '/icon.png',
         '/index.html'
-      ]);
+      ]).catch(function(error) {
+        console.error('Falha ao adicionar arquivos à cache:', error);
+      });
     })
   );
   self.skipWaiting(); // Ativar o Service Worker imediatamente após a instalação
@@ -23,5 +25,13 @@ self.addEventListener('activate', function(event) {
       );
     })
   );
-  self.clients.claim(); // Tomar controle imediato da página
+  self.clients.claim(); // Garantir que o service worker ative-se e controle a página imediatamente
+});
+
+self.addEventListener('fetch', function(event) {
+  event.respondWith(
+    caches.match(event.request).then(function(response) {
+      return response || fetch(event.request);
+    })
+  );
 });
