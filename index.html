@@ -48,21 +48,25 @@
       e.preventDefault();
       deferredPrompt = e;
 
-      // Exibe o prompt de instalação automaticamente
-      deferredPrompt.prompt();
+      // Aguardar um tempo antes de exibir o prompt
+      setTimeout(() => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
 
-      // Espera a escolha do usuário
-      deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('Usuário aceitou o prompt de instalação');
-        } else {
-          console.log('Usuário rejeitou o prompt de instalação');
+          // Espera a escolha do usuário
+          deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('Usuário aceitou o prompt de instalação');
+            } else {
+              console.log('Usuário rejeitou o prompt de instalação');
+            }
+            deferredPrompt = null;
+
+            // Redireciona para o Linktree após a escolha do usuário
+            window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
+          });
         }
-        deferredPrompt = null;
-
-        // Redireciona para o Linktree após a escolha do usuário
-        window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
-      });
+      }, 3000); // Ajuste o tempo de espera conforme necessário
     });
   </script>
 </body>
