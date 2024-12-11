@@ -2,9 +2,9 @@ self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open('static-v1').then(function(cache) {
       return cache.addAll([
-        '/',
+        '/index.html',
         '/icon.png',
-        '/index.html'
+        // Adicione outras URLs necessárias aqui
       ]).catch(function(error) {
         console.error('Falha ao adicionar arquivos à cache:', error);
       });
@@ -35,3 +35,15 @@ self.addEventListener('fetch', function(event) {
     })
   );
 });
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then((registration) => {
+        console.log('Service Worker registrado com sucesso:', registration);
+      })
+      .catch((error) => {
+        console.log('Falha ao registrar o Service Worker:', error);
+      });
+  });
+}
