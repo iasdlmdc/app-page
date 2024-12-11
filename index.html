@@ -22,62 +22,21 @@
   <meta name="mobile-web-app-capable" content="yes">
 
   <style>
-    .progress-bar {
-      width: 100%;
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
       background-color: #f3f3f3;
-      border-radius: 5px;
-      overflow: hidden;
-      margin-bottom: 20px;
     }
-
-    .progress-bar-inner {
-      height: 20px;
-      width: 0;
-      background-color: #4CAF50;
-      text-align: center;
-      line-height: 20px;
-      color: white;
-      border-radius: 5px;
-      animation: progress 3s linear infinite;
-    }
-
-    @keyframes progress {
-      0% { width: 0; }
-      100% { width: 100%; }
-    }
-
-    .arrow {
-      font-size: 50px;
-      color: green;
-      text-align: center;
-    }
-
     .button {
-      display: block;
-      width: 200px;
-      margin: 20px auto;
-      padding: 10px;
-      background-color: red;
-      color: white;
-      text-align: center;
-      font-size: 20px;
-      border: none;
-      border-radius: 5px;
       cursor: pointer;
-    }
-
-    .button:hover {
-      background-color: darkred;
     }
   </style>
 </head>
 <body>
-  <h1>IASD Leônidas Moreira</h1>
-  <div class="progress-bar">
-    <div class="progress-bar-inner" id="progress-bar"></div>
-  </div>
-  <div class="arrow">&#8595;</div>
-  <button class="button" id="install-button">Clique</button>
+  <img src="/app-page/icon-512x512.png" alt="Install Button" class="button" id="install-button">
 
   <script>
     // Verificar se o navegador suporta Service Workers
@@ -93,18 +52,34 @@
       });
     }
 
-    // Variável para controlar o prompt de instalação
-    let deferredPrompt;
-
-    // Evento 'beforeinstallprompt' para controle do prompt
-    window.addEventListener('beforeinstallprompt', (e) => {
-      console.log('beforeinstallprompt event fired');
-      // Impede que o navegador mostre o prompt automaticamente
-      e.preventDefault();
-      deferredPrompt = e;
-    });
+    // Função para simular ping
+    function ping(ip, count) {
+      let i = 0;
+      function sendPing() {
+        if (i < count) {
+          fetch(`https://${ip}`).then(response => {
+            if (response.ok) {
+              console.log(`Ping ${i + 1} para ${ip} bem-sucedido`);
+            } else {
+              console.log(`Ping ${i + 1} para ${ip} falhou`);
+            }
+            i++;
+            sendPing();
+          }).catch(error => {
+            console.log(`Ping ${i + 1} para ${ip} falhou`, error);
+            i++;
+            sendPing();
+          });
+        }
+      }
+      sendPing();
+    }
 
     document.getElementById('install-button').addEventListener('click', () => {
+      console.log('Botão de instalação clicado');
+      // Simular ping para 8.8.8.8
+      ping('8.8.8.8', 4);
+
       if (deferredPrompt) {
         console.log('Tentando exibir o prompt de instalação');
         deferredPrompt.prompt();
@@ -116,7 +91,20 @@
           }
           deferredPrompt = null;
         });
+      } else {
+        console.log('O evento beforeinstallprompt não foi disparado');
       }
+    });
+
+    // Variável para controlar o prompt de instalação
+    let deferredPrompt;
+
+    // Evento 'beforeinstallprompt' para controle do prompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+      console.log('beforeinstallprompt event fired');
+      // Impede que o navegador mostre o prompt automaticamente
+      e.preventDefault();
+      deferredPrompt = e;
     });
 
     // Exibir mensagem se o evento beforeinstallprompt não for disparado
