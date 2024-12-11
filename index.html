@@ -20,9 +20,37 @@
 
   <!-- A página será registrada como PWA -->
   <meta name="mobile-web-app-capable" content="yes">
+
+  <style>
+    .progress-bar {
+      width: 100%;
+      background-color: #f3f3f3;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progress-bar-inner {
+      height: 20px;
+      width: 0;
+      background-color: #4CAF50;
+      text-align: center;
+      line-height: 20px;
+      color: white;
+      border-radius: 5px;
+      animation: progress 3s linear infinite;
+    }
+
+    @keyframes progress {
+      0% { width: 0; }
+      100% { width: 100%; }
+    }
+  </style>
 </head>
 <body>
   <h1>IASD Leônidas Moreira</h1>
+  <div class="progress-bar">
+    <div class="progress-bar-inner" id="progress-bar"></div>
+  </div>
 
   <script>
     // Verificar se o navegador suporta Service Workers
