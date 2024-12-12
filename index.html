@@ -21,6 +21,18 @@
   <body>
     <h1>Bem-vindo ao Meu Linktree</h1>
 
+    <!-- Exibindo o ícone e o texto -->
+    <img src="icon-512x512.png" alt="Ícone" width="150">
+    <p>Tenha o site da igreja diretamente na tela do seu celular. Clique abaixo para adicionar.</p>
+
+    <!-- Checkbox de confirmação -->
+    <label>
+      <input type="checkbox" id="confirmCheckbox"> Eu quero adicionar à tela inicial
+    </label><br><br>
+
+    <!-- Botão de confirmação -->
+    <button id="confirmButton" disabled>Confirmar</button>
+
     <script type="text/javascript">
       // Variável para controlar o prompt de instalação
       let deferredPrompt;
@@ -29,6 +41,7 @@
       const installButton = document.createElement('button');
       installButton.textContent = 'Adicionar à tela inicial';
       document.body.appendChild(installButton);
+      installButton.style.display = 'none';  // Inicialmente escondido
 
       // Evento 'beforeinstallprompt' para controle do botão
       window.addEventListener('beforeinstallprompt', (e) => {
@@ -36,11 +49,8 @@
         e.preventDefault();
         deferredPrompt = e;
 
-        // Exibe o botão "Adicionar à tela inicial"
-        installButton.style.display = 'block';
-
-        // Quando o usuário clicar no botão, exibe o prompt de instalação
-        installButton.addEventListener('click', () => {
+        // Exibe o botão "Adicionar à tela inicial" após confirmação do usuário
+        document.getElementById('confirmButton').addEventListener('click', () => {
           // Exibe o prompt de instalação
           deferredPrompt.prompt();
 
@@ -55,10 +65,19 @@
             installButton.style.display = 'none';  // Esconde o botão após a escolha do usuário
           });
         });
+
+        // Exibe o botão de confirmação
+        document.getElementById('confirmButton').style.display = 'inline-block';
       });
 
-      // Adiciona comportamento de redirecionamento ao clicar no atalho
-      window.addEventListener('load', () => {
+      // Habilita o botão de confirmação quando o checkbox for marcado
+      document.getElementById('confirmCheckbox').addEventListener('change', (e) => {
+        const confirmButton = document.getElementById('confirmButton');
+        confirmButton.disabled = !e.target.checked;
+      });
+
+      // Adiciona comportamento de redirecionamento ao clicar no botão de confirmação
+      document.getElementById('confirmButton').addEventListener('click', () => {
         // Redireciona para o Linktree diretamente
         window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
       });
