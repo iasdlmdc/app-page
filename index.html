@@ -17,6 +17,25 @@
 
     <!-- A página não será registrada como uma PWA -->
     <meta name="mobile-web-app-capable" content="no">
+
+    <style>
+      /* Estilos para o indicador de carregamento (ampulheta circular) */
+      .loader {
+        border: 8px solid #f3f3f3; /* Cor de fundo */
+        border-top: 8px solid #4CAF50; /* Cor do topo da ampulheta */
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+        margin: 20px auto;
+      }
+
+      /* Animação de rotação */
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
   </head>
   <body>
     <h1>Bem-vindo ao Site da IASD Leônidas Moreira</h1>
@@ -32,6 +51,9 @@
 
     <!-- Botão de confirmação -->
     <button id="confirmButton" disabled>Confirmar</button>
+
+    <!-- Indicador de carregamento (ampulheta circular) -->
+    <div id="loader" class="loader" style="display: none;"></div>
 
     <script type="text/javascript">
       // Variável para controlar o prompt de instalação
@@ -62,9 +84,13 @@
       // Adiciona comportamento para exibir o prompt de instalação e redirecionamento
       document.getElementById('confirmButton').addEventListener('click', () => {
         if (deferredPrompt) {
+          // Exibe o indicador de carregamento (ampulheta)
+          document.getElementById('loader').style.display = 'block';
+
           // Exibe o prompt de instalação com um pequeno delay
           setTimeout(() => {
             deferredPrompt.prompt();
+
             deferredPrompt.userChoice.then((choiceResult) => {
               if (choiceResult.outcome === 'accepted') {
                 console.log('Usuário aceitou o prompt de instalação');
@@ -72,12 +98,15 @@
                 console.log('Usuário rejeitou o prompt de instalação');
               }
               deferredPrompt = null;
-            });
-          }, 5000); // Delay de 500ms para garantir o tempo necessário
-        }
 
-        // Redireciona para o Linktree após a confirmação
-        window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
+              // Oculta a ampulheta após o prompt
+              document.getElementById('loader').style.display = 'none';
+
+              // Redireciona para o Linktree após a confirmação
+              window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
+            });
+          }, 5000); // Delay de 5000ms para garantir o tempo necessário
+        }
       });
     </script>
   </body>
