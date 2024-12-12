@@ -1,6 +1,6 @@
 {
   "name": "IASD Lêonidas Moreira",
-  "short_name": "Leônidas Moreira",
+  "short_name": "IASD Leônidas",
   "description": "Acesse diretamente da tela inicial.",
   "start_url": "/app-page/",  // Ajuste para o caminho correto no seu ambiente
   "display": "standalone",
