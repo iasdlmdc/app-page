@@ -1,9 +1,7 @@
 let deferredPrompt;
 
 window.addEventListener('beforeinstallprompt', (e) => {
-  // Previna o prompt padrão
   e.preventDefault();
-  // Salve o evento para acioná-lo mais tarde
   deferredPrompt = e;
 
   document.getElementById('pwa-prompt').style.display = 'block';
@@ -22,4 +20,12 @@ window.addEventListener('beforeinstallprompt', (e) => {
     }
   });
 });
-if ('serviceWorker' in navigator) { navigator.serviceWorker.register('/service-worker.js') .then((registration) => { console.log('Service Worker registered with scope:', registration.scope); }).catch((error) => { console.log('Service Worker registration failed:', error); }); }
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js')
+    .then((registration) => {
+      console.log('Service Worker registered with scope:', registration.scope);
+    }).catch((error) => {
+      console.log('Service Worker registration failed:', error);
+    });
+}
