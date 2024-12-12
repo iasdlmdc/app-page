@@ -1,135 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IASD Leônidas Moreira</title>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Linktree</title>
 
-  <!-- Definindo o nome do atalho -->
-  <meta name="apple-mobile-web-app-title" content="IASD Leônidas Moreira">
-  <meta name="application-name" content="Leônidas Moreira">
+    <!-- Definindo o nome do atalho -->
+    <meta name="apple-mobile-web-app-title" content="Meu Linktree">
+    <meta name="application-name" content="Meu Linktree">
 
-  <!-- Definindo o ícone para o atalho -->
-  <link rel="icon" href="/app-page/icon.png" type="image/png">
-  <link rel="apple-touch-icon" href="/app-page/icon.png">
+    <!-- Definindo o ícone para o atalho -->
+    <link rel="icon" href="/app-page/icon.png" type="image/png">
+    <link rel="apple-touch-icon" href="/app-page/icon.png">
 
-  <!-- Manifesto PWA -->
-  <link rel="manifest" href="/app-page/manifest.json">
+    <meta name="theme-color" content="#4CAF50">
 
-  <meta name="theme-color" content="#4CAF50">
+    <!-- A página não será registrada como uma PWA -->
+    <meta name="mobile-web-app-capable" content="no">
+  </head>
+  <body>
+    <h1>Bem-vindo ao Meu Linktree</h1>
 
-  <!-- A página será registrada como PWA -->
-  <meta name="mobile-web-app-capable" content="yes">
+    <script type="text/javascript">
+      // Variável para controlar o prompt de instalação
+      let deferredPrompt;
 
-  <style>
-    .progress-bar {
-      width: 100%;
-      background-color: #f3f3f3;
-      border-radius: 5px;
-      overflow: hidden;
-      margin-bottom: 20px;
-    }
+      // Criação do botão para adicionar à tela inicial
+      const installButton = document.createElement('button');
+      installButton.textContent = 'Adicionar à tela inicial';
+      document.body.appendChild(installButton);
 
-    .progress-bar-inner {
-      height: 20px;
-      width: 0;
-      background-color: #4CAF50;
-      text-align: center;
-      line-height: 20px;
-      color: white;
-      border-radius: 5px;
-      animation: progress 3s linear infinite;
-    }
+      // Evento 'beforeinstallprompt' para controle do botão
+      window.addEventListener('beforeinstallprompt', (e) => {
+        // Impede que o navegador mostre o prompt automaticamente
+        e.preventDefault();
+        deferredPrompt = e;
 
-    @keyframes progress {
-      0% { width: 0; }
-      100% { width: 100%; }
-    }
+        // Exibe o botão "Adicionar à tela inicial"
+        installButton.style.display = 'block';
 
-    .arrow {
-      font-size: 50px;
-      color: green;
-      text-align: center;
-    }
+        // Quando o usuário clicar no botão, exibe o prompt de instalação
+        installButton.addEventListener('click', () => {
+          // Exibe o prompt de instalação
+          deferredPrompt.prompt();
 
-    .button {
-      display: block;
-      width: 200px;
-      margin: 20px auto;
-      padding: 10px;
-      background-color: red;
-      color: white;
-      text-align: center;
-      font-size: 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .button:hover {
-      background-color: darkred;
-    }
-  </style>
-</head>
-<body>
-  <h1>IASD Leônidas Moreira</h1>
-  <div class="progress-bar">
-    <div class="progress-bar-inner" id="progress-bar"></div>
-  </div>
-  <div class="arrow">&#8595;</div>
-  <button class="button" id="install-button">Clique</button>
-
-  <script>
-    // Verificar se o navegador suporta Service Workers
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/app-page/service-worker.js')
-          .then((registration) => {
-            console.log('Service Worker registrado com sucesso:', registration);
-          })
-          .catch((error) => {
-            console.log('Falha ao registrar o Service Worker:', error);
+          // Espera a escolha do usuário
+          deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('Usuário aceitou o prompt de instalação');
+            } else {
+              console.log('Usuário rejeitou o prompt de instalação');
+            }
+            deferredPrompt = null;
+            installButton.style.display = 'none';  // Esconde o botão após a escolha do usuário
           });
-      });
-    }
-
-    // Variável para controlar o prompt de instalação
-    let deferredPrompt;
-
-    // Evento 'beforeinstallprompt' para controle do prompt
-    window.addEventListener('beforeinstallprompt', (e) => {
-      console.log('beforeinstallprompt event fired');
-      // Impede que o navegador mostre o prompt automaticamente
-      e.preventDefault();
-      deferredPrompt = e;
-    });
-
-    document.getElementById('install-button').addEventListener('click', () => {
-      console.log('Botão de instalação clicado');
-      if (deferredPrompt) {
-        console.log('Tentando exibir o prompt de instalação');
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            console.log('Usuário aceitou o prompt de instalação');
-          } else {
-            console.log('Usuário rejeitou o prompt de instalação');
-          }
-          deferredPrompt = null;
         });
-      } else {
-        console.log('O evento beforeinstallprompt não foi disparado');
-      }
-    });
+      });
 
-    // Exibir mensagem se o evento beforeinstallprompt não for disparado
-    window.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => {
-        if (!deferredPrompt) {
-          console.log('O evento beforeinstallprompt não foi disparado');
-        }
-      }, 5000); // Ajuste o tempo conforme necessário para verificar o evento
-    });
-  </script>
-</body>
+      // Adiciona comportamento de redirecionamento ao clicar no atalho
+      window.addEventListener('load', () => {
+        // Redireciona para o Linktree diretamente
+        window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua com o seu Linktree
+      });
+    </script>
+  </body>
 </html>
