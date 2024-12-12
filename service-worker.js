@@ -1,40 +1,14 @@
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open('my-cache').then((cache) => {
-      return cache.addAll([
-        '/',
-        '/index.html',
-        '/app-page/icon.png',
-        '/manifest.json'
-      ]);
-    })
-  );
+  // Apenas instalar, sem cache ou complexidade adicional.
+  self.skipWaiting();  // Força a ativação imediata.
 });
 
 self.addEventListener('activate', (event) => {
-  console.log('Service Worker ativado');
-  event.waitUntil(clients.claim());
+  // Ativação simples, sem manipulação de cache ou outras funções.
+  console.log('Service Worker Ativado');
 });
 
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      // Tenta buscar a resposta do cache, se não encontrar, faz uma busca na rede
-      return cachedResponse || fetch(event.request).then((networkResponse) => {
-        // Se a resposta da rede for válida, armazena ela no cache
-        if (networkResponse && networkResponse.status === 200) {
-          return caches.open('my-cache').then((cache) => {
-            cache.put(event.request, networkResponse.clone());
-            return networkResponse;
-          });
-        } else {
-          return networkResponse;
-        }
-      });
-    }).catch((error) => {
-      // Caso ocorra algum erro na busca do cache ou da rede, exibe o erro no console
-      console.error('Erro ao buscar o recurso:', error);
-      throw error;
-    })
-  );
+  // Aqui, você pode adicionar um comportamento básico para o serviço
+  // mas no seu caso ele não é necessário se for apenas um redirecionamento simples.
 });
