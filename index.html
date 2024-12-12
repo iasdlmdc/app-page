@@ -6,15 +6,20 @@
   <title>Meu Linktree</title>
   <meta name="apple-mobile-web-app-title" content="IASD Leônidas Moreira">
   <meta name="application-name" content="IASD Leônidas Moreira">
-  <link rel="icon" href="/app-page/icon.png" type="image/png">
-  <link rel="apple-touch-icon" href="/app-page/icon.png">
-  <link rel="manifest" href="/manifest.json">
+
+  <!-- Caminho corrigido para o ícone -->
+  <link rel="icon" href="app-page/icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="app-page/icon.png">
+
+  <!-- Caminho corrigido para o manifest -->
+  <link rel="manifest" href="app-page/manifest.json">
+  
   <meta name="theme-color" content="#4CAF50">
   <meta name="mobile-web-app-capable" content="no">
 </head>
 <body>
   <h1>Bem-vindo ao Site da IASD Leônidas Moreira</h1>
-  <img src="icon-512x512.png" alt="Ícone" width="150">
+  <img src="app-page/icon-512x512.png" alt="Ícone" width="150">
   <p>Tenha o site da igreja diretamente na tela do seu celular. Clique abaixo para adicionar.</p>
   <label>
     <input type="checkbox" id="confirmCheckbox"> Eu quero adicionar à tela inicial
@@ -56,8 +61,9 @@
       window.location.href = "https://linktr.ee/iasdlm.dc";
     });
 
+    // Corrigido o caminho do Service Worker
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+      navigator.serviceWorker.register('app-page/service-worker.js').then(function(registration) {
         console.log('Service Worker registrado com sucesso:', registration);
       }).catch(function(error) {
         console.log('Falha ao registrar o Service Worker:', error);
