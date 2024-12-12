@@ -2,7 +2,7 @@
   "name": "IASD Lêonidas Moreira",
   "short_name": "IASD Leônidas",
   "description": "Acesse diretamente da tela inicial.",
-  "start_url": "https://linktr.ee/iasdlm.dc",  // Ajuste para o caminho correto no seu ambiente
+  "start_url": "/app-page/",  // Ajuste para o caminho correto no seu ambiente
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#4CAF50",
