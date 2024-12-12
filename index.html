@@ -58,24 +58,28 @@
     // Exibe o prompt de instalação e redireciona após a confirmação
     document.getElementById('confirmButton').addEventListener('click', () => {
       if (deferredPrompt) {
-        setTimeout(() => {
-          deferredPrompt.prompt();
-          deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-              console.log('Usuário aceitou o prompt de instalação');
-            } else {
-              console.log('Usuário rejeitou o prompt de instalação');
-            }
-            deferredPrompt = null;
-          });
-        }, 5000);
+        // Exibe o prompt de instalação com atraso
+        deferredPrompt.prompt();
+        
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('Usuário aceitou o prompt de instalação');
+          } else {
+            console.log('Usuário rejeitou o prompt de instalação');
+          }
+          
+          // Redireciona o usuário após o delay para garantir que o prompt de instalação tenha tempo de ser exibido
+          setTimeout(() => {
+            window.location.href = "https://linktr.ee/iasdlm.dc";
+          }, 3000);  // Atraso de 3 segundos (ajuste conforme necessário)
+          
+          deferredPrompt = null;
+        });
       }
-      window.location.href = "https://linktr.ee/iasdlm.dc";
     });
 
     // Verificação e instalação do Service Worker
     if ('serviceWorker' in navigator) {
-      // Registra o Service Worker apenas se o evento 'beforeinstallprompt' foi disparado
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('https://iasdlmdc.github.io/app-page/service-worker.js', { scope: '/app-page/' })
           .then((registration) => {
