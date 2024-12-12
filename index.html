@@ -55,19 +55,25 @@
     // Exibe o prompt de instalação e redireciona após a decisão do usuário
     document.getElementById('confirmButton').addEventListener('click', () => {
       if (deferredPrompt) {
-        // Mostra o prompt e aguarda a escolha do usuário
+        // Mostrar o prompt de instalação
+        console.log('Mostrando o prompt...');
         deferredPrompt.prompt();
 
+        // Espera a resposta do usuário
         deferredPrompt.userChoice.then((choiceResult) => {
+          console.log('A escolha do usuário foi:', choiceResult.outcome);
+          
+          // Se o usuário aceitar, ou não, podemos registrar a ação
           if (choiceResult.outcome === 'accepted') {
             console.log('Usuário aceitou o prompt de instalação');
           } else {
             console.log('Usuário rejeitou o prompt de instalação');
           }
-          deferredPrompt = null;
 
-          // Após a escolha, redireciona para o link
+          // Redirecionar após a escolha do usuário
           window.location.href = "https://linktr.ee/iasdlm.dc";
+
+          deferredPrompt = null;
         });
       }
     });
