@@ -1,24 +1,21 @@
 {
-  "name": "IASD Leônidas Moreira",
-  "short_name": "Leônidas",
-  "start_url": "https://linktr.ee/iasdlm.dc",
-  "display": "browser",
-  "orientation": "portrait",
-  "scope": "/",
+  "name": "IASD Lêonidas Moreira",
+  "short_name": "IASD LM",
+  "description": "Acesse diretamente da tela inicial.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4CAF50",
   "icons": [
     {
-      "src": "/icon.png",
+      "src": "icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
-    }
-  ],
-  "prefer_related_applications": true,
-  "related_applications": [
+    },
     {
-      "platform": "web",
-      "url": "https://linktr.ee/iasdlm.dc"
+      "src": "icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ]
 }
-
-
