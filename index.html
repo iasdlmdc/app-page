@@ -24,6 +24,10 @@
   </label><br><br>
   <button id="confirmButton" disabled>Confirmar</button>
 
+  <div id="waitingMessage" style="display:none;">
+    <p>Aguarde...</p>
+  </div>
+
   <script type="text/javascript">
     let deferredPrompt;
     const installButton = document.createElement('button');
@@ -55,8 +59,12 @@
       confirmButton.disabled = !e.target.checked;
     });
 
-    // Exibe o prompt de instalação e redireciona após a confirmação
+    // Exibe o prompt de instalação e aguarda a escolha do usuário
     document.getElementById('confirmButton').addEventListener('click', () => {
+      // Exibe a mensagem de "Aguarde..."
+      document.getElementById('waitingMessage').style.display = 'block';
+      document.getElementById('confirmButton').style.display = 'none'; // Oculta o botão de confirmação
+
       if (deferredPrompt) {
         // Exibe o prompt de instalação com atraso
         deferredPrompt.prompt();
@@ -67,13 +75,11 @@
           } else {
             console.log('Usuário rejeitou o prompt de instalação');
           }
-          
-          // Redireciona o usuário após o delay para garantir que o prompt de instalação tenha tempo de ser exibido
-          setTimeout(() => {
-            window.location.href = "https://linktr.ee/iasdlm.dc";
-          }, 3000);  // Atraso de 3 segundos (ajuste conforme necessário)
-          
-          deferredPrompt = null;
+
+          // O redirecionamento agora ocorre apenas após a escolha do usuário
+          window.location.href = "https://linktr.ee/iasdlm.dc";
+
+          deferredPrompt = null; // Reseta o deferredPrompt após o uso
         });
       }
     });
