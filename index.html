@@ -7,11 +7,9 @@
   <meta name="apple-mobile-web-app-title" content="IASD Leônidas Moreira">
   <meta name="application-name" content="IASD Leônidas Moreira">
 
-  <!-- Caminhos corrigidos para os arquivos -->
   <link rel="icon" href="https://iasdlmdc.github.io/app-page/icon.png" type="image/png">
   <link rel="apple-touch-icon" href="https://iasdlmdc.github.io/app-page/icon.png">
 
-  <!-- Caminho corrigido para o manifest -->
   <link rel="manifest" href="https://iasdlmdc.github.io/app-page/manifest.json">
 
   <meta name="theme-color" content="#4CAF50">
@@ -33,17 +31,31 @@
     document.body.appendChild(installButton);
     installButton.style.display = 'none';
 
+    // Verificação do evento 'beforeinstallprompt'
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
+
+      // Verificação de execução do evento
+      console.log('beforeinstallprompt disparado');
+      
+      // Exibe o botão de confirmação após o evento 'beforeinstallprompt'
       document.getElementById('confirmButton').style.display = 'inline-block';
     });
 
+    // Caso o evento 'beforeinstallprompt' não seja disparado
+    if (!deferredPrompt) {
+      console.log('beforeinstallprompt NÃO foi disparado');
+      alert('O evento de instalação não foi disparado. Isso pode ocorrer por várias razões, como o site não ser servido via HTTPS ou não ter um Service Worker configurado corretamente.');
+    }
+
+    // Habilita o botão de confirmação quando o checkbox for marcado
     document.getElementById('confirmCheckbox').addEventListener('change', (e) => {
       const confirmButton = document.getElementById('confirmButton');
       confirmButton.disabled = !e.target.checked;
     });
 
+    // Exibe o prompt de instalação e redireciona após a confirmação
     document.getElementById('confirmButton').addEventListener('click', () => {
       if (deferredPrompt) {
         setTimeout(() => {
