@@ -1,14 +1,14 @@
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open('my-cache').then((cache) => {
-      // Lista de arquivos a serem armazenados no cache
       return cache.addAll([
-        '/',
-        '/index.html',
-        '/app-page/icon.png',
-        '/manifest.json',
-        '/app-page/icon-192x192.png',
-        '/app-page/icon-512x512.png',
+        // Usando URLs absolutas para garantir que os recursos sejam encontrados
+        'https://iasdlmdc.github.io/app-page/', // Página inicial
+        'https://iasdlmdc.github.io/app-page/index.html', // Página index
+        'https://iasdlmdc.github.io/app-page/app-page/icon.png', // Ícone
+        'https://iasdlmdc.github.io/app-page/manifest.json', // Manifesto
+        'https://iasdlmdc.github.io/app-page/app-page/icon-192x192.png', // Ícone 192x192
+        'https://iasdlmdc.github.io/app-page/app-page/icon-512x512.png' // Ícone 512x512
       ]).catch((error) => {
         console.error('Falha ao adicionar recursos ao cache:', error);
       });
