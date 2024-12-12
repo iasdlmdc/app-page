@@ -37,6 +37,7 @@
 
       // Exibe o botão de confirmação após o evento 'beforeinstallprompt'
       document.getElementById('confirmButton').style.display = 'inline-block';
+      console.log('beforeinstallprompt disparado');
     });
 
     // Caso o evento 'beforeinstallprompt' não seja disparado
@@ -51,24 +52,24 @@
       confirmButton.disabled = !e.target.checked;
     });
 
-    // Exibe o prompt de instalação e redireciona após a confirmação
+    // Exibe o prompt de instalação e redireciona após a decisão do usuário
     document.getElementById('confirmButton').addEventListener('click', () => {
       if (deferredPrompt) {
-        setTimeout(() => {
-          deferredPrompt.prompt();
-          deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-              console.log('Usuário aceitou o prompt de instalação');
-            } else {
-              console.log('Usuário rejeitou o prompt de instalação');
-            }
-            deferredPrompt = null;
-          });
-        }, 5000); // Aguarda 5 segundos antes de mostrar o prompt
-      }
+        // Mostra o prompt e aguarda a escolha do usuário
+        deferredPrompt.prompt();
 
-      // Redireciona para o link desejado após a instalação
-      window.location.href = "https://linktr.ee/iasdlm.dc";
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('Usuário aceitou o prompt de instalação');
+          } else {
+            console.log('Usuário rejeitou o prompt de instalação');
+          }
+          deferredPrompt = null;
+
+          // Após a escolha, redireciona para o link
+          window.location.href = "https://linktr.ee/iasdlm.dc";
+        });
+      }
     });
 
     // Registra o Service Worker
