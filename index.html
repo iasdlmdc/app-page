@@ -73,12 +73,27 @@
       window.location.href = "https://linktr.ee/iasdlm.dc";
     });
 
-    // Caminho corrigido para o Service Worker
+    // Verificação e instalação do Service Worker
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('https://iasdlmdc.github.io/app-page/service-worker.js', { scope: '/app-page/' }).then(function(registration) {
-        console.log('Service Worker registrado com sucesso:', registration);
-      }).catch(function(error) {
-        console.log('Falha ao registrar o Service Worker:', error);
+      // Registra o Service Worker apenas se o evento 'beforeinstallprompt' foi disparado
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('https://iasdlmdc.github.io/app-page/service-worker.js', { scope: '/app-page/' })
+          .then((registration) => {
+            console.log('Service Worker registrado com sucesso:', registration);
+
+            // Verifica a ativação do Service Worker
+            registration.onupdatefound = () => {
+              const installingWorker = registration.installing;
+              installingWorker.onstatechange = () => {
+                if (installingWorker.state === 'activated') {
+                  console.log('Service Worker ativado');
+                }
+              };
+            };
+          })
+          .catch((error) => {
+            console.log('Falha ao registrar o Service Worker:', error);
+          });
       });
     }
   </script>
