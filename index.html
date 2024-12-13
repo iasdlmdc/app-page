@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Meu Linktree</title>
-  <meta name="apple-mobile-web-app-title" content="IASD Le�nidas Moreira">
-  <meta name="application-name" content="IASD Le�nidas Moreira">
+  <meta name="apple-mobile-web-app-title" content="IASD Leônidas Moreira">
+  <meta name="application-name" content="IASD Leônidas Moreira">
 
   <link rel="icon" href="https://iasdlmdc.github.io/app-page/icon.png" type="image/png">
   <link rel="apple-touch-icon" href="https://iasdlmdc.github.io/app-page/icon.png">
@@ -16,11 +16,11 @@
   <meta name="mobile-web-app-capable" content="no">
 </head>
 <body>
-  <h1>Bem-vindo ao Site da IASD Le�nidas Moreira</h1>
+  <h1>Bem-vindo ao Site da IASD Leônidas Moreira</h1>
   <img src="https://iasdlmdc.github.io/app-page/icon-512x512.png" alt="�cone" width="150">
   <p>Tenha o site da igreja diretamente na tela do seu celular. Clique abaixo para adicionar.</p>
   <label>
-    <input type="checkbox" id="confirmCheckbox"> Eu quero adicionar � tela inicial
+    <input type="checkbox" id="confirmCheckbox"> Eu quero adicionar à tela inicial
   </label><br><br>
   <button id="confirmButton" disabled>Confirmar</button>
 
@@ -31,67 +31,67 @@
   <script type="text/javascript">
     let deferredPrompt;
     const installButton = document.createElement('button');
-    installButton.textContent = 'Adicionar � tela inicial';
+    installButton.textContent = 'Adicionar à tela inicial';
     document.body.appendChild(installButton);
     installButton.style.display = 'none';
 
-    // Verifica��o do evento 'beforeinstallprompt'
+    // Verificação do evento 'beforeinstallprompt'
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
 
-      // Verifica��o de execu��o do evento
+      // Verificação de execução do evento
       console.log('beforeinstallprompt disparado');
       
-      // Exibe o bot�o de confirma��o ap�s o evento 'beforeinstallprompt'
+      // Exibe o botão de confirmação após o evento 'beforeinstallprompt'
       document.getElementById('confirmButton').style.display = 'inline-block';
     });
 
-    // Caso o evento 'beforeinstallprompt' n�o seja disparado
+    // Caso o evento 'beforeinstallprompt' não seja disparado
     if (!deferredPrompt) {
-      console.log('beforeinstallprompt N�O foi disparado');
-      alert('O evento de instala��o n�o foi disparado. Isso pode ocorrer por v�rias raz�es, como o site n�o ser servido via HTTPS ou n�o ter um Service Worker configurado corretamente.');
+      console.log('beforeinstallprompt NÃO foi disparado');
+      alert('O evento de instalação não foi disparado. Isso pode ocorrer por várias razões, como o site não ser servido via HTTPS ou não ter um Service Worker configurado corretamente.');
     }
 
-    // Habilita o bot�o de confirma��o quando o checkbox for marcado
+    // Habilita o botão de confirmação quando o checkbox for marcado
     document.getElementById('confirmCheckbox').addEventListener('change', (e) => {
       const confirmButton = document.getElementById('confirmButton');
       confirmButton.disabled = !e.target.checked;
     });
 
-    // Exibe o prompt de instala��o e aguarda a escolha do usu�rio
+    // Exibe o prompt de instalação e aguarda a escolha do usuário
     document.getElementById('confirmButton').addEventListener('click', () => {
       // Exibe a mensagem de "Aguarde..."
       document.getElementById('waitingMessage').style.display = 'block';
-      document.getElementById('confirmButton').style.display = 'none'; // Oculta o bot�o de confirma��o
+      document.getElementById('confirmButton').style.display = 'none'; // Oculta o botão de confirmação
 
       if (deferredPrompt) {
-        // Exibe o prompt de instala��o com atraso
+        // Exibe o prompt de instalação com atraso
         deferredPrompt.prompt();
         
         deferredPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
-            console.log('Usu�rio aceitou o prompt de instala��o');
+            console.log('Usuário aceitou o prompt de instalação');
           } else {
-            console.log('Usu�rio rejeitou o prompt de instala��o');
+            console.log('Usuário rejeitou o prompt de instalação');
           }
 
-          // O redirecionamento agora ocorre apenas ap�s a escolha do usu�rio
+          // O redirecionamento agora ocorre apenas após a escolha do usu�rio
           window.location.href = "https://linktr.ee/iasdlm.dc";
 
-          deferredPrompt = null; // Reseta o deferredPrompt ap�s o uso
+          deferredPrompt = null; // Reseta o deferredPrompt após o uso
         });
       }
     });
 
-    // Verifica��o e instala��o do Service Worker
+    // Verificação e instalação do Service Worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('https://iasdlmdc.github.io/app-page/service-worker.js', { scope: '/app-page/' })
           .then((registration) => {
             console.log('Service Worker registrado com sucesso:', registration);
 
-            // Verifica a ativa��o do Service Worker
+            // Verifica a ativação do Service Worker
             registration.onupdatefound = () => {
               const installingWorker = registration.installing;
               installingWorker.onstatechange = () => {
