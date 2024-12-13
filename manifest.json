@@ -2,18 +2,18 @@
   "name": "IASD Leônidas Moreira",
   "short_name": "IASD LM",
   "description": "Acesse diretamente da tela inicial.",
-  "start_url": "/index.html",  // Ajuste para o caminho correto
-  "display": "standalone",     // Ajuste para melhor experiência como app
+  "start_url": "https://linktr.ee/iasdlm.dc",  // Link externo do Linktree
+  "display": "standalone",  // Exibe o site sem os controles de navegação
   "background_color": "#ffffff",
   "theme_color": "#4CAF50",
   "icons": [
     {
-      "src": "icon-192x192.png",  // Garanta que o ícone exista no caminho correto
+      "src": "icon-192x192.png",  // Certifique-se de ter o ícone correto no caminho correto
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icon-512x512.png",  // Garanta que o ícone exista no caminho correto
+      "src": "icon-512x512.png",  // Certifique-se de ter o ícone correto no caminho correto
       "sizes": "512x512",
       "type": "image/png"
     }
