@@ -38,9 +38,3 @@ self.addEventListener('fetch', (event) => {
     })
   );
 });
-// Disparar o prompt após 5 segundos de interação do usuário
-setTimeout(() => {
-    if (deferredPrompt) {
-        deferredPrompt.prompt();
-    }
-}, 5000);
