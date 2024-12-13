@@ -1,18 +1,19 @@
 {
-  "name": "Nome do Seu Site",
-  "short_name": "Atalho",
-  "start_url": "/app-page/",
-  "display": "standalone",
+  "name": "IASD Lêonidas Moreira",
+  "short_name": "IASD LM",
+  "description": "Acesse diretamente da tela inicial.",
+  "start_url": "https://linktr.ee/iasdlm.dc",  // Ajuste para o caminho correto no seu ambiente
+  "display": "minimal-ui",
   "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "theme_color": "#4CAF50",
   "icons": [
     {
-      "src": "path/to/icon-192x192.png",
+      "src": "icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "path/to/icon-512x512.png",
+      "src": "icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
