@@ -4,16 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
-  <title>Instalando Atalho para Linktree</title>
-
-  <!-- Favicon e ícones -->
-  <link rel="icon" href="favicon.ico">
-  <link rel="icon" sizes="192x192" href="icon-192x192.png">
-  <link rel="icon" sizes="512x512" href="icon-512x512.png">
-
-  <!-- Manifesto para criar o atalho com o ícone e nome -->
+  <title>Instalar Linktree</title>
   <link rel="manifest" href="manifest.json">
-
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -34,50 +26,59 @@
       font-size: 20px;
       color: #333;
     }
-    .loading {
-      font-size: 16px;
-      color: #007bff;
+    .install-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: none; /* Inicialmente escondido */
+    }
+    .install-btn:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <p>Instalando atalho...</p>
-    <p class="loading">Por favor, aguarde você será redirecionado.</p>
+    <p>Instale o atalho para Linktree</p>
+    <button class="install-btn" id="installBtn">Adicionar à tela inicial</button>
   </div>
 
   <script>
-    // Aguardar o carregamento da página
-    window.onload = () => {
-      let deferredPrompt;
-      
-      // Detecta o evento beforeinstallprompt
-      window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault(); // Previne o comportamento padrão
-        deferredPrompt = e; // Armazena o evento
+    let deferredPrompt;
 
-        // Mostrar o prompt de instalação automaticamente após 1 segundo
-        setTimeout(() => {
-          deferredPrompt.prompt(); // Exibe o prompt
-          deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-              console.log('Atalho instalado com sucesso!');
-            } else {
-              console.log('Usuário recusou o atalho.');
-            }
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Previne o comportamento padrão do evento
+      e.preventDefault();
+      // Armazena o evento para ser disparado depois
+      deferredPrompt = e;
 
-            // Após a instalação, redireciona para o Linktree
-            window.location.href = "https://linktr.ee/iasdlm.dc"; 
-          });
-        }, 5000);  // Atraso de 1 segundo para garantir que o prompt seja mostrado
+      // Exibe o botão de instalação
+      const installButton = document.getElementById('installBtn');
+      installButton.style.display = 'block';  // Mostra o botão
+
+      // Ao clicar no botão, exibe o prompt de instalação
+      installButton.addEventListener('click', () => {
+        // Exibe o prompt de instalação
+        deferredPrompt.prompt();
+
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('Usuário aceitou a instalação.');
+          } else {
+            console.log('Usuário recusou a instalação.');
+          }
+        });
       });
+    });
 
-      // Caso o evento de instalação não aconteça, apenas redireciona para o Linktree
-      setTimeout(() => {
-        window.location.href = "https://linktr.ee/iasdlm.dc";  // Redireciona imediatamente após 2 segundos
-      }, 12000);
-    };
+    // Se o evento de instalação não for disparado, podemos redirecionar o usuário
+    setTimeout(() => {
+      window.location.href = "https://linktr.ee/iasdlm.dc";
+    }, 9000);  // Redireciona após 2 segundos se o evento não ocorrer
   </script>
 
 </body>
