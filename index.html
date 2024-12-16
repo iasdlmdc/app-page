@@ -4,12 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="refresh" content="0; url=https://linktr.ee/iasdlm.dc" />
-  <title>Redirecionando para o Linktree...</title>
+  <title>Redirecionando...</title>
   <link rel="manifest" href="manifest.json">
-  <!-- Ícone da página, que será exibido ao adicionar o atalho -->
-  <link rel="icon" href="https://iasdlmdc.github.io/app-page/icone-atalho.png" type="image/png">
-  
-  <!-- Estilos adicionais para exibir a página enquanto redireciona -->
+  <link rel="icon" href="https://iasdlmdc.github.io/app-page/icon-192x192.png" type="image/png">
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -30,21 +28,54 @@
       border-radius: 50%;
       margin-top: 20px;
     }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
   </style>
 </head>
 <body>
-  <h1>Redirecionando...</h1>
-  <p>Você será redirecionado para o Linktree em breve. Se não for redirecionado, <a href="https://linktr.ee/iasdlm.dc">clique aqui</a>.</p>
-  <img src="https://iasdlmdc.github.io/app-page/icone-atalho.png" alt="Ícone do Atalho">
-  
+  <h1>Redirecionando para o Linktree...</h1>
+  <p>Se o redirecionamento não ocorrer automaticamente, <a href="https://linktr.ee/iasdlm.dc">clique aqui</a>.</p>
+  <img src="https://iasdlmdc.github.io/app-page/icon-192x192.png" alt="Ícone do Atalho">
+  <h2>Nome do Atalho: Leônidas</h2>
+
+  <div id="android-instructions" style="display:none;">
+    <p>Para adicionar o atalho no seu dispositivo Android:</p>
+    <ol>
+      <li>Abra o menu de opções (ícone de três pontos) no canto superior direito.</li>
+      <li>Selecione <strong>Adicionar à tela inicial</strong>.</li>
+      <li>Escolha o nome "Leônidas" e toque em <strong>Adicionar</strong>.</li>
+    </ol>
+  </div>
+
+  <div id="ios-instructions" style="display:none;">
+    <p>Para adicionar o atalho no seu dispositivo iOS:</p>
+    <ol>
+      <li>Toque no ícone de compartilhamento (quadrado com a seta para cima).</li>
+      <li>Selecione <strong>Adicionar à Tela de Início</strong>.</li>
+      <li>Escolha o nome "Leônidas" e toque em <strong>Adicionar</strong>.</li>
+    </ol>
+  </div>
+
   <script>
-    // Detecção do sistema operacional do usuário
+    // Detecta o sistema operacional do usuário
     function detectOS() {
       const userAgent = window.navigator.userAgent.toLowerCase();
       if (userAgent.indexOf("android") > -1) {
-        alert("Para adicionar o atalho à tela inicial no Android: Abra o menu de opções (três pontos) e clique em 'Adicionar à tela inicial'.");
+        document.getElementById("android-instructions").style.display = "block";
       } else if (userAgent.indexOf("iphone") > -1 || userAgent.indexOf("ipad") > -1) {
-        alert("Para adicionar o atalho à tela inicial no iOS: Toque no ícone de compartilhamento e selecione 'Adicionar à Tela de Início'.");
+        document.getElementById("ios-instructions").style.display = "block";
+      } else {
+        alert("Seu dispositivo não foi reconhecido. Siga as instruções gerais do seu navegador.");
       }
     }
 
