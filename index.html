@@ -43,6 +43,15 @@
       text-decoration: none;
       color: #007bff;
       font-size: 18px;
+      display: none; /* Inicialmente o link estará oculto */
+    }
+    .install-btn {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
     }
   </style>
 </head>
@@ -51,8 +60,48 @@
   <div class="container">
     <img src="icon-512x512.png" alt="Ícone Linktree">
     <p>Tenha mais informações sobre nossa igreja.</p>
-    <a href="https://linktr.ee/iasdlm.dc" target="_blank">Visite nosso Linktree</a>
+    <button class="install-btn" id="installBtn">Instalar atalho</button>
+    <a id="linktree" href="https://linktr.ee/iasdlm.dc" target="_blank">Visite nosso Linktree</a>
   </div>
+
+  <script>
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+    const linktree = document.getElementById('linktree');
+
+    // Detecta quando o evento de "beforeinstallprompt" ocorre
+    window.addEventListener('beforeinstallprompt', (e) => {
+      // Previne a ação automática de exibição do prompt
+      e.preventDefault();
+      // Armazena o evento para ser usado mais tarde
+      deferredPrompt = e;
+      // Torna o botão de instalação visível
+      installBtn.style.display = 'block';
+    });
+
+    // Ao clicar no botão "Instalar atalho"
+    installBtn.addEventListener('click', () => {
+      // Exibe o prompt para instalação
+      deferredPrompt.prompt();
+      // Espera pela resposta do usuário
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('Usuário aceitou o prompt de instalação');
+        } else {
+          console.log('Usuário recusou o prompt de instalação');
+        }
+        // Após a escolha, o botão de instalação desaparece
+        installBtn.style.display = 'none';
+        // O link para o Linktree é liberado
+        linktree.style.display = 'block';
+      });
+    });
+
+    // Exibe uma mensagem ao abrir o atalho, se for um PWA
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      alert("Leônidas M apresenta falhas continuamente. App Fechou.");
+    }
+  </script>
 
 </body>
 </html>
