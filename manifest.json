@@ -1,8 +1,8 @@
 {
   "name": "Informações sobre nossa Igreja",
-  "short_name": "Igreja",
-  "description": "PWA para acessar informações sobre nossa igreja.",
-  "start_url": "https://iasdlmdc.github.io/app-page",
+  "short_name": "Leônidas Moreira",
+  "description": "Acesse mais informações sobre nossa igreja.",
+  "start_url": "https://iasdlmdc.github.io/app-page",  // Certifique-se de que este é o URL da sua página
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
