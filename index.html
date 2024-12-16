@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
-  <title>Linktree Igreja</title>
+  <title>Instalando Atalho para Linktree</title>
 
   <!-- Favicon e ícones -->
   <link rel="icon" href="favicon.ico">
@@ -30,75 +30,55 @@
       flex-direction: column;
       align-items: center;
     }
-    img {
-      width: 192px;
-      height: 192px;
-      margin-bottom: 20px;
-    }
     p {
       font-size: 20px;
       color: #333;
     }
-    a {
-      text-decoration: none;
+    .loading {
+      font-size: 16px;
       color: #007bff;
-      font-size: 18px;
-      display: none; /* Inicialmente o link estará oculto */
-    }
-    .install-btn {
-      background-color: #007bff;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 18px;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <img src="icon-512x512.png" alt="Ícone Linktree">
-    <p>Tenha mais informações sobre nossa igreja.</p>
-    <button class="install-btn" id="installBtn" style="display:none;">Instalar atalho</button>
-    <a id="linktree" href="https://linktr.ee/iasdlm.dc" target="_blank">Visite nosso Linktree</a>
+    <p>Instalando atalho...</p>
+    <p class="loading">Por favor, aguarde enquanto o atalho é instalado e você será redirecionado.</p>
   </div>
 
   <script>
-    let deferredPrompt;
-    const installBtn = document.getElementById('installBtn');
-    const linktree = document.getElementById('linktree');
-    const appInstalledKey = 'app_installed'; // Chave para controlar o estado de instalação
+    // Aguardar o carregamento da página
+    window.onload = () => {
+      // Verificar se o navegador pode instalar o PWA
+      let deferredPrompt;
+      
+      // Detecta o evento para instalação do atalho
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault(); // Previne o comportamento padrão
+        deferredPrompt = e;
 
-    // Detecta quando o evento "beforeinstallprompt" ocorre
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault(); // Previne a ação padrão
-      deferredPrompt = e; // Armazena o evento
-      installBtn.style.display = 'block'; // Exibe o botão de instalação
-    });
+        // Instalar o atalho automaticamente após 1 segundo
+        setTimeout(() => {
+          deferredPrompt.prompt(); // Mostrar o prompt de instalação
+          deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('Atalho instalado com sucesso!');
+            } else {
+              console.log('Usuário recusou o atalho.');
+            }
 
-    // Ao clicar no botão "Instalar atalho"
-    installBtn.addEventListener('click', () => {
-      deferredPrompt.prompt(); // Exibe o prompt de instalação
-      deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('Usuário aceitou o prompt de instalação');
-          localStorage.setItem(appInstalledKey, 'true'); // Marca o app como instalado
-        } else {
-          console.log('Usuário recusou o prompt de instalação');
-        }
-        installBtn.style.display = 'none'; // Oculta o botão de instalação após a decisão
-        linktree.style.display = 'block'; // Exibe o link para o Linktree
+            // Após a instalação, redireciona para o Linktree
+            window.location.href = "https://linktr.ee/iasdlm.dc";
+          });
+        }, 1000); // Aguarda 1 segundo para o processo de instalação
       });
-    });
 
-    // Verifica se o app foi instalado e está em modo standalone
-    if (window.matchMedia('(display-mode: standalone)').matches) {
-      if (localStorage.getItem(appInstalledKey) === 'true') {
-        // Se o app foi instalado, mostra o link para o Linktree
-        linktree.style.display = 'block';
-      }
-    }
+      // Caso o evento de instalação não aconteça, apenas redireciona para o Linktree
+      setTimeout(() => {
+        window.location.href = "https://linktr.ee/iasdlm.dc"; // Redirecionamento para o Linktree
+      }, 2000);  // Após 2 segundos, redireciona o usuário
+    };
   </script>
 
 </body>
