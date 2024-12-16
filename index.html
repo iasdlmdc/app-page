@@ -97,10 +97,12 @@
       });
     });
 
-    // Exibe uma mensagem ao abrir o atalho, se for um PWA
+    // Verificação para exibir a mensagem de erro ao abrir o atalho no modo standalone
     if (window.matchMedia('(display-mode: standalone)').matches) {
+      // Se o app está sendo executado como PWA (atualização do atalho), a mensagem de erro será exibida.
       alert("Leônidas M apresenta falhas continuamente. App Fechou.");
     }
+
   </script>
 
 </body>
