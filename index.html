@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#ffffff">
-  <title>Instalar Linktree</title>
+  <title>Instalar Atalho Linktree</title>
   <link rel="manifest" href="manifest.json">
   <style>
     body {
@@ -49,36 +49,38 @@
 
   <script>
     let deferredPrompt;
+    let installButton = document.getElementById('installBtn');
 
+    // Ouvir o evento "beforeinstallprompt"
     window.addEventListener('beforeinstallprompt', (e) => {
-      // Previne o comportamento padrão do evento
-      e.preventDefault();
-      // Armazena o evento para ser disparado depois
-      deferredPrompt = e;
+      e.preventDefault(); // Previne a instalação automática
+      deferredPrompt = e; // Armazena o evento para ser acionado mais tarde
 
       // Exibe o botão de instalação
-      const installButton = document.getElementById('installBtn');
-      installButton.style.display = 'block';  // Mostra o botão
+      installButton.style.display = 'block';
 
-      // Ao clicar no botão, exibe o prompt de instalação
+      // Ao clicar no botão, mostrar o prompt de instalação
       installButton.addEventListener('click', () => {
-        // Exibe o prompt de instalação
-        deferredPrompt.prompt();
-
+        deferredPrompt.prompt(); // Exibe o prompt de instalação
         deferredPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
             console.log('Usuário aceitou a instalação.');
           } else {
             console.log('Usuário recusou a instalação.');
           }
+
+          // Depois de tomar uma decisão, redireciona
+          window.location.href = "https://linktr.ee/iasdlm.dc"; 
         });
       });
     });
 
-    // Se o evento de instalação não for disparado, podemos redirecionar o usuário
+    // Caso o evento 'beforeinstallprompt' não seja disparado (por exemplo, o navegador não é compatível), redireciona após 2 segundos.
     setTimeout(() => {
-      window.location.href = "https://linktr.ee/iasdlm.dc";
-    }, 9000);  // Redireciona após 2 segundos se o evento não ocorrer
+      if (!deferredPrompt) {
+        window.location.href = "https://linktr.ee/iasdlm.dc";
+      }
+    }, 2000);  // Redireciona automaticamente após 2 segundos se o evento não ocorrer
   </script>
 
 </body>
