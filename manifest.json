@@ -1,7 +1,7 @@
 {
   "name": "IASD Leônidas",
   "short_name": "Leônidas",
-  "description": "Acesse nosso site de forma fácil",
+  "description": "Acesse o Linktr.ee de forma fácil",
   "start_url": "https://linktr.ee/iasdlm.dc",
   "display": "standalone",  // Isso garante que o atalho será tratado como uma "web app"
   "background_color": "#ffffff",
