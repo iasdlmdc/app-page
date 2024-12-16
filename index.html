@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="refresh" content="0; url=https://linktr.ee/iasdlm.dc" />
-  <title>Redirecionando...</title>
+  <title>Adicionar Atalho - Leônidas</title>
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="https://iasdlmdc.github.io/app-page/icon-192x192.png" type="image/png">
 
@@ -12,23 +11,9 @@
     body {
       font-family: Arial, sans-serif;
       text-align: center;
-      margin-top: 20px;
+      margin: 20px;
     }
-    h1 {
-      font-size: 24px;
-      color: #333;
-    }
-    p {
-      font-size: 18px;
-      color: #666;
-    }
-    img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      margin-top: 20px;
-    }
-    button {
+    .btn {
       padding: 10px 20px;
       font-size: 16px;
       background-color: #4CAF50;
@@ -37,15 +22,20 @@
       cursor: pointer;
       margin-top: 20px;
     }
-    button:hover {
+    .btn:hover {
       background-color: #45a049;
+    }
+    img {
+      width: 100px;
+      height: 100px;
+      border-radius: 10px;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <h1>Redirecionando para o Linktree...</h1>
-  <p>Se o redirecionamento não ocorrer automaticamente, <a href="https://linktr.ee/iasdlm.dc">clique aqui</a>.</p>
-  <img src="https://iasdlmdc.github.io/app-page/icon-192x192.png" alt="Ícone do Atalho">
+  <h1>Adicionar o Atalho à Tela Inicial</h1>
+  <img src="https://iasdlmdc.github.io/app-page/icon-192x192.png" alt="Ícone do Atalho" />
   <h2>Nome do Atalho: Leônidas</h2>
 
   <div id="android-instructions" style="display:none;">
@@ -66,6 +56,8 @@
     </ol>
   </div>
 
+  <button class="btn" id="open-url">Abrir Linktr.ee</button>
+
   <script>
     // Detecta o sistema operacional do usuário
     function detectOS() {
@@ -81,6 +73,11 @@
 
     // Chama a função para detectar o sistema operacional
     detectOS();
+
+    // Redireciona para o Linktree após o clique no botão
+    document.getElementById("open-url").addEventListener("click", function() {
+      window.location.href = "https://linktr.ee/iasdlm.dc";
+    });
   </script>
 </body>
 </html>
