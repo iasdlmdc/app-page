@@ -1,9 +1,9 @@
 {
-  "name": "Informações Igreja",
-  "short_name": "Leônidas M",
+  "name": "Linktree Igreja",
+  "short_name": "Leonidas",
   "description": "Acesse as informações sobre nossa igreja.",
-  "start_url": "https://iasdlmdc.github.io/app-page", 
-  "display": "standalone",  // Voltar para 'standalone' para ativar o comportamento de instalação
+  "start_url": "https://linktr.ee/iasdlm.dc", 
+  "display": "standalone",  // Este modo faz com que seja tratado como um PWA
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
   "icons": [
