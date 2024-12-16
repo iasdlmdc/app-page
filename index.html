@@ -32,7 +32,7 @@
 </head>
 <body>
   <h1>Adicionar o Atalho à Tela Inicial</h1>
-  <img src="https://iasdlmdc.github.io/app-page/icon-192.192.png" alt="Atalho" />
+  <img src="https://iasdlmdc.github.io/app-page/icone-atalho.png" alt="Atalho" />
   <h2>Nome do Atalho: Linktr.ee</h2>
 
   <div id="android-instructions" style="display:none;">
@@ -71,4 +71,10 @@
     // Chama a função para detectar o sistema operacional
     detectOS();
 
-    
+    // Opcional: redireciona o usuário para o site se clicar no botão
+    document.getElementById("open-url").addEventListener("click", function() {
+      window.location.href = "https://linktr.ee/iasdlm.dc";
+    });
+  </script>
+</body>
+</html>
