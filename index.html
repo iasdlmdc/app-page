@@ -54,7 +54,7 @@
     </ol>
   </div>
 
-  <button class="btn" id="open-url">Abrir Site</button>
+  <button class="btn" id="open-url">Abrir Linktree</button>
 
   <script>
     // Detecta o sistema operacional do usuário
@@ -72,10 +72,17 @@
     // Chama a função para detectar o sistema operacional
     detectOS();
 
-    // Ao clicar no botão, redireciona para a URL do Linktree
-    document.getElementById("open-url").addEventListener("click", function() {
+    // Função para redirecionar após 5 segundos
+    setTimeout(function() {
+      // Redireciona para o Linktree
       window.location.href = "https://linktr.ee/iasdlm.dc";
-    });
+    }, 5000);
+
+    // Exibe as instruções após o redirecionamento (5 segundos)
+    setTimeout(function() {
+      document.getElementById("android-instructions").style.display = "block";
+      document.getElementById("ios-instructions").style.display = "block";
+    }, 5000);
   </script>
 </body>
 </html>
