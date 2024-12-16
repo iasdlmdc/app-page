@@ -13,14 +13,62 @@
 
   <!-- Manifesto da PWA -->
   <link rel="manifest" href="manifest.json">
-
-  <script>
-    // Redirecionamento para o Linktree
-    window.location.href = "https://linktr.ee/iasdlm.dc";  // Substitua pelo seu Linktree
-  </script>
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+      background-color: #f5f5f5;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    img {
+      width: 192px;
+      height: 192px;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 20px;
+      color: #333;
+    }
+    a {
+      text-decoration: none;
+      color: #007bff;
+      font-size: 18px;
+    }
+  </style>
 </head>
 <body>
-  <!-- Conteúdo da página (opcional) -->
-  <p>Redirecionando para o Linktree...</p>
+
+  <div class="container">
+    <img src="icon-512x512.png" alt="Ícone">
+    <p>Tenha mais informações sobre nossa igreja.</p>
+    <!-- Link que direciona para o Linktree -->
+    <a href="https://linktr.ee/iasdlm.dc" target="_blank">Visite nosso Linktree</a>
+  </div>
+
+  <script>
+    // Garantir que o PWA seja tratado corretamente sem redirecionamento automático.
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(registration => {
+            console.log('Service Worker registrado com sucesso:', registration);
+          })
+          .catch(error => {
+            console.log('Falha ao registrar o Service Worker:', error);
+          });
+      });
+    }
+  </script>
+
 </body>
 </html>
