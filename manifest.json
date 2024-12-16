@@ -1,19 +1,19 @@
 {
-  "name": "IASD Leônidas Moreira",
-  "short_name": "IASD LM",
-  "description": "Acesse diretamente da tela inicial.",
-  "start_url": "https://linktr.ee/iasdlm.dc",  // Link externo do Linktree
-  "display": "standalone",  // Exibe o site sem os controles de navegação
+  "name": "Informações sobre nossa Igreja",
+  "short_name": "Igreja",
+  "description": "PWA para acessar informações sobre nossa igreja.",
+  "start_url": "https://iasdlmdc.github.io/app-page",
+  "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#4CAF50",
+  "theme_color": "#ffffff",
   "icons": [
     {
-      "src": "icon-192x192.png",  // Certifique-se de ter o ícone correto no caminho correto
+      "src": "icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icon-512x512.png",  // Certifique-se de ter o ícone correto no caminho correto
+      "src": "icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
