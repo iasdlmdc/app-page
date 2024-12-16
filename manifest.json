@@ -3,7 +3,7 @@
   "short_name": "Leônidas M",
   "description": "Acesse as informações sobre nossa igreja.",
   "start_url": "https://iasdlmdc.github.io/app-page",
-  "display": "standalone",
+  "display": "browser",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
   "icons": [
