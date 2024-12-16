@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IASD - Leônidas</title>
   <link rel="icon" href="https://iasdlmdc.github.io/app-page/icon-192x192.png" type="image/png">
+  <link rel="manifest" href="manifest.json">  <!-- Adicionando o manifest.json para configurar o ícone e nome do atalho -->
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -72,13 +73,13 @@
     // Chama a função para detectar o sistema operacional
     detectOS();
 
-    // Função para redirecionar após 5 segundos
+    // Espera 5 segundos para redirecionar
     setTimeout(function() {
       // Redireciona para o Linktree
       window.location.href = "https://linktr.ee/iasdlm.dc";
-    }, 500);
+    }, 5000);
 
-    // Exibe as instruções após o redirecionamento (5 segundos)
+    // Exibe as instruções após o redirecionamento
     setTimeout(function() {
       document.getElementById("android-instructions").style.display = "block";
       document.getElementById("ios-instructions").style.display = "block";
