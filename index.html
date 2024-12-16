@@ -50,17 +50,16 @@
   <script>
     // Aguardar o carregamento da página
     window.onload = () => {
-      // Verificar se o navegador pode instalar o PWA
       let deferredPrompt;
       
-      // Detecta o evento para instalação do atalho
+      // Detecta o evento beforeinstallprompt
       window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault(); // Previne o comportamento padrão
-        deferredPrompt = e;
+        deferredPrompt = e; // Armazena o evento
 
-        // Instalar o atalho automaticamente após 1 segundo
+        // Mostrar o prompt de instalação automaticamente após 1 segundo
         setTimeout(() => {
-          deferredPrompt.prompt(); // Mostrar o prompt de instalação
+          deferredPrompt.prompt(); // Exibe o prompt
           deferredPrompt.userChoice.then((choiceResult) => {
             if (choiceResult.outcome === 'accepted') {
               console.log('Atalho instalado com sucesso!');
@@ -69,15 +68,15 @@
             }
 
             // Após a instalação, redireciona para o Linktree
-            window.location.href = "https://linktr.ee/iasdlm.dc";
+            window.location.href = "https://linktr.ee/iasdlm.dc"; 
           });
-        }, 1000); // Aguarda 1 segundo para o processo de instalação
+        }, 1000);  // Atraso de 1 segundo para garantir que o prompt seja mostrado
       });
 
       // Caso o evento de instalação não aconteça, apenas redireciona para o Linktree
       setTimeout(() => {
-        window.location.href = "https://linktr.ee/iasdlm.dc"; // Redirecionamento para o Linktree
-      }, 2000);  // Após 2 segundos, redireciona o usuário
+        window.location.href = "https://linktr.ee/iasdlm.dc";  // Redireciona imediatamente após 2 segundos
+      }, 2000);
     };
   </script>
 
