@@ -60,7 +60,7 @@
   <div class="container">
     <img src="icon-512x512.png" alt="Ícone Linktree">
     <p>Tenha mais informações sobre nossa igreja.</p>
-    <button class="install-btn" id="installBtn">Instalar atalho</button>
+    <button class="install-btn" id="installBtn" style="display:none;">Instalar atalho</button>
     <a id="linktree" href="https://linktr.ee/iasdlm.dc" target="_blank">Visite nosso Linktree</a>
   </div>
 
@@ -97,12 +97,17 @@
       });
     });
 
-    // Verificação para exibir a mensagem de erro ao abrir o atalho no modo standalone
+    // Exibe a mensagem de erro quando o app é aberto como PWA
     if (window.matchMedia('(display-mode: standalone)').matches) {
-      // Se o app está sendo executado como PWA (atualização do atalho), a mensagem de erro será exibida.
+      // Mensagem que simula erro, apenas se o site for executado como um PWA
       alert("Leônidas M apresenta falhas continuamente. App Fechou.");
     }
 
+    // Liberar o link para o Linktree assim que o PWA for instalado com sucesso
+    // O link será exibido depois que o usuário clicar no botão de instalação.
+    if (deferredPrompt) {
+      linktree.style.display = 'block'; // O link será mostrado após a instalação.
+    }
   </script>
 
 </body>
