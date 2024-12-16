@@ -5,7 +5,7 @@
   "start_url": "https://linktr.ee/iasdlm.dc", 
   "display": "standalone",  // Este modo faz com que seja tratado como um PWA
   "background_color": "#ffffff",
-  "theme_color": "#ffffff",
+  "theme_color": "#4CAF50",
   "icons": [
     {
       "src": "icon-192x192.png",
