@@ -68,6 +68,7 @@
     let deferredPrompt;
     const installBtn = document.getElementById('installBtn');
     const linktree = document.getElementById('linktree');
+    const appInstalledKey = 'app_installed'; // Definimos uma chave para armazenar o estado de instalação
 
     // Detecta quando o evento de "beforeinstallprompt" ocorre
     window.addEventListener('beforeinstallprompt', (e) => {
@@ -87,6 +88,7 @@
       deferredPrompt.userChoice.then((choiceResult) => {
         if (choiceResult.outcome === 'accepted') {
           console.log('Usuário aceitou o prompt de instalação');
+          localStorage.setItem(appInstalledKey, 'true'); // Marca o app como instalado
         } else {
           console.log('Usuário recusou o prompt de instalação');
         }
@@ -97,10 +99,12 @@
       });
     });
 
-    // Exibe a mensagem de erro quando o app é aberto como PWA
+    // Verifica se o app foi instalado e está em modo standalone
     if (window.matchMedia('(display-mode: standalone)').matches) {
-      // Mensagem que simula erro, apenas se o site for executado como um PWA
-      alert("Leônidas M apresenta falhas continuamente. App Fechou.");
+      // Se o app estiver em modo standalone, podemos redirecionar diretamente para o Linktree
+      if (localStorage.getItem(appInstalledKey) === 'true') {
+        window.location.href = "https://linktr.ee/iasdlm.dc"; // Redireciona para o Linktree
+      }
     }
 
     // Liberar o link para o Linktree assim que o PWA for instalado com sucesso
