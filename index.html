@@ -68,23 +68,18 @@
     let deferredPrompt;
     const installBtn = document.getElementById('installBtn');
     const linktree = document.getElementById('linktree');
-    const appInstalledKey = 'app_installed'; // Definimos uma chave para armazenar o estado de instalação
+    const appInstalledKey = 'app_installed'; // Chave para controlar o estado de instalação
 
-    // Detecta quando o evento de "beforeinstallprompt" ocorre
+    // Detecta quando o evento "beforeinstallprompt" ocorre
     window.addEventListener('beforeinstallprompt', (e) => {
-      // Previne a ação automática de exibição do prompt
-      e.preventDefault();
-      // Armazena o evento para ser usado mais tarde
-      deferredPrompt = e;
-      // Torna o botão de instalação visível
-      installBtn.style.display = 'block';
+      e.preventDefault(); // Previne a ação padrão
+      deferredPrompt = e; // Armazena o evento
+      installBtn.style.display = 'block'; // Exibe o botão de instalação
     });
 
     // Ao clicar no botão "Instalar atalho"
     installBtn.addEventListener('click', () => {
-      // Exibe o prompt para instalação
-      deferredPrompt.prompt();
-      // Espera pela resposta do usuário
+      deferredPrompt.prompt(); // Exibe o prompt de instalação
       deferredPrompt.userChoice.then((choiceResult) => {
         if (choiceResult.outcome === 'accepted') {
           console.log('Usuário aceitou o prompt de instalação');
@@ -92,25 +87,17 @@
         } else {
           console.log('Usuário recusou o prompt de instalação');
         }
-        // Após a escolha, o botão de instalação desaparece
-        installBtn.style.display = 'none';
-        // O link para o Linktree é liberado
-        linktree.style.display = 'block';
+        installBtn.style.display = 'none'; // Oculta o botão de instalação após a decisão
+        linktree.style.display = 'block'; // Exibe o link para o Linktree
       });
     });
 
     // Verifica se o app foi instalado e está em modo standalone
     if (window.matchMedia('(display-mode: standalone)').matches) {
-      // Se o app estiver em modo standalone, podemos redirecionar diretamente para o Linktree
       if (localStorage.getItem(appInstalledKey) === 'true') {
-        window.location.href = "https://linktr.ee/iasdlm.dc"; // Redireciona para o Linktree
+        // Se o app foi instalado, mostra o link para o Linktree
+        linktree.style.display = 'block';
       }
-    }
-
-    // Liberar o link para o Linktree assim que o PWA for instalado com sucesso
-    // O link será exibido depois que o usuário clicar no botão de instalação.
-    if (deferredPrompt) {
-      linktree.style.display = 'block'; // O link será mostrado após a instalação.
     }
   </script>
 
