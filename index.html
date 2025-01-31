@@ -31,6 +31,17 @@
     document.getElementById('register-sw-btn').addEventListener('click', () => {
       console.log('Botão de registro do Service Worker clicado');
       registerServiceWorker();
+      
+      // Forçando a exibição do prompt de instalação manualmente
+      if (deferredPrompt) {
+        console.log('Mostrando o prompt de instalação');
+        deferredPrompt.prompt(); // Mostra o prompt de instalação
+        deferredPrompt.userChoice
+          .then((choiceResult) => {
+            console.log('Resultado da escolha: ', choiceResult.outcome); // 'accepted' ou 'dismissed'
+            deferredPrompt = null; // Limpa a variável após o prompt ser mostrado
+          });
+      }
     });
 
     // Escutando o evento 'beforeinstallprompt'
@@ -41,23 +52,8 @@
       // Armazenamos o evento para ser chamado mais tarde
       deferredPrompt = event;
 
-      // Adicionando botão para instalação
-      const installButton = document.createElement('button');
-      installButton.textContent = 'Adicionar à Tela Inicial';
-      document.body.appendChild(installButton);
-
-      // Quando o usuário clicar no botão, mostramos o prompt de instalação
-      installButton.addEventListener('click', () => {
-        if (deferredPrompt) {
-          console.log('Mostrando o prompt de instalação');
-          deferredPrompt.prompt(); // Mostra o prompt de instalação
-          deferredPrompt.userChoice
-            .then((choiceResult) => {
-              console.log('Resultado da escolha: ', choiceResult.outcome); // 'accepted' ou 'dismissed'
-              deferredPrompt = null; // Limpa a variável após o prompt ser mostrado
-            });
-        }
-      });
+      // Log para confirmar que o evento foi disparado
+      console.log('beforeinstallprompt capturado');
     });
 
     // Verificando se o PWA foi instalado
