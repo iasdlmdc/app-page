@@ -8,12 +8,6 @@
     <!-- Link para o manifesto -->
     <link rel="manifest" href="/app-page/manifest.json">
 
-    <!-- Redireciona para o Linktree -->
-    <script>
-      // Redireciona para o Linktree assim que a página for carregada
-      window.location.href = "https://linktr.ee/iasdlm.dc";
-    </script>
-
     <!-- Registra o Service Worker -->
     <script>
       if ('serviceWorker' in navigator) {
@@ -24,9 +18,31 @@
         });
       }
     </script>
+
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #ffffff;
+      }
+      .message {
+        font-size: 1.5em;
+        color: #000000;
+      }
+    </style>
   </head>
   <body>
-    <!-- Pode adicionar uma mensagem de "Aguarde..." aqui, se desejar -->
-    <p>Aguarde enquanto você é redirecionado...</p>
+    <!-- Mensagem temporária -->
+    <div class="message">Aguarde enquanto você é redirecionado...</div>
+
+    <script>
+      // Espera 2 segundos antes de redirecionar
+      setTimeout(function() {
+        window.location.href = "https://linktr.ee/iasdlm.dc";
+      }, 2000);
+    </script>
   </body>
 </html>
