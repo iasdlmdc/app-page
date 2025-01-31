@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Salvar Atalho</title>
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="iasdlmdc/app-page/manifest.json">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Meu Atalho">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="apple-touch-icon" href="icone-192x192.png">
+    <link rel="apple-touch-icon" href="iasdlmdc/app-page/icone-192x192.png">
 </head>
 <body>
     <h1>Salvar Atalho na Tela Inicial</h1>
@@ -18,7 +18,7 @@
     <script>
         // Registrar o Service Worker
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js')
+            navigator.serviceWorker.register('/iasdlmdc/app-page/service-worker.js')
             .then(function(registration) {
                 console.log('Service Worker registrado com sucesso:', registration);
             })
