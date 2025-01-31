@@ -1,7 +1,6 @@
 {
   "name": "IASD Leônidas",
   "short_name": "Leônidas",
-  "description": "Acesse todos os meus links importantes.",
   "start_url": "https://linktr.ee/iasdlm.dc",
   "display": "standalone",
   "background_color": "#ffffff",
