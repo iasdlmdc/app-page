@@ -8,7 +8,6 @@
 </head>
 <body>
   <button id="register-sw-btn">Registrar Service Worker</button>
-  <!-- Novo botão para disparar o evento de instalação -->
   <button id="install-btn" style="display:none;">Adicionar à Tela Inicial</button>
 
   <script>
@@ -48,13 +47,22 @@
 
     // Event listener para o novo botão de instalação
     document.getElementById('install-btn').addEventListener('click', () => {
+      console.log('Botão de instalação clicado');
       if (deferredPrompt) {
-        console.log('Disparando o prompt de instalação manualmente');
+        // Agora o prompt de instalação será disparado
         deferredPrompt.prompt(); // Mostra o prompt de instalação
         deferredPrompt.userChoice
           .then((choiceResult) => {
             console.log('Resultado da escolha: ', choiceResult.outcome); // 'accepted' ou 'dismissed'
+            if (choiceResult.outcome === 'accepted') {
+              console.log('Usuário aceitou a instalação');
+            } else {
+              console.log('Usuário rejeitou a instalação');
+            }
             deferredPrompt = null; // Limpa a variável após o prompt ser mostrado
+          })
+          .catch((err) => {
+            console.log('Erro ao mostrar o prompt de instalação: ', err);
           });
       }
     });
