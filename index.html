@@ -23,4 +23,48 @@
             console.log('Falha ao registrar o Service Worker: ', error);
           });
       } else {
-        console.log('Service Workers não são suportados ne
+        console.log('Service Workers não são suportados neste navegador.');
+      }
+    }
+
+    // Event listener para o botão de registro do Service Worker
+    document.getElementById('register-sw-btn').addEventListener('click', () => {
+      console.log('Botão de registro do Service Worker clicado');
+      registerServiceWorker();
+    });
+
+    // Escutando o evento 'beforeinstallprompt'
+    window.addEventListener('beforeinstallprompt', (event) => {
+      console.log('beforeinstallprompt disparado');
+      // Previne o comportamento padrão do navegador (que não mostra o prompt)
+      event.preventDefault();
+      // Armazenamos o evento para ser chamado mais tarde
+      deferredPrompt = event;
+
+      // Adicionando botão para instalação
+      const installButton = document.createElement('button');
+      installButton.textContent = 'Adicionar à Tela Inicial';
+      document.body.appendChild(installButton);
+
+      // Quando o usuário clicar no botão, mostramos o prompt de instalação
+      installButton.addEventListener('click', () => {
+        if (deferredPrompt) {
+          console.log('Mostrando o prompt de instalação');
+          deferredPrompt.prompt(); // Mostra o prompt de instalação
+          deferredPrompt.userChoice
+            .then((choiceResult) => {
+              console.log('Resultado da escolha: ', choiceResult.outcome); // 'accepted' ou 'dismissed'
+              deferredPrompt = null; // Limpa a variável após o prompt ser mostrado
+            });
+        }
+      });
+    });
+
+    // Verificando se o PWA foi instalado
+    window.addEventListener('appinstalled', (event) => {
+      console.log('PWA foi instalado!');
+    });
+
+  </script>
+</body>
+</html>
