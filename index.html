@@ -22,14 +22,15 @@
 
       // Evento disparado quando o navegador detecta que a PWA pode ser instalada
       window.addEventListener('beforeinstallprompt', function(event) {
+        console.log('beforeinstallprompt disparado!');  // Verifique se o evento é disparado
         // Previne o prompt automático
         event.preventDefault();
         // Armazena o evento para usar mais tarde
         deferredPrompt = event;
-        
+
         // Exibe o botão de "Adicionar à Tela Inicial"
         const installButton = document.getElementById('installButton');
-        installButton.style.display = 'block';
+        installButton.style.display = 'block';  // Torna o botão visível
 
         // Quando o botão for clicado, exibe o prompt de instalação
         installButton.addEventListener('click', function() {
@@ -38,7 +39,7 @@
           
           // Espera o usuário interagir com o prompt
           deferredPrompt.userChoice.then(function(choiceResult) {
-            console.log(choiceResult.outcome);  // Resultado: 'accepted' ou 'dismissed'
+            console.log('Resultado da instalação:', choiceResult.outcome);  // 'accepted' ou 'dismissed'
             deferredPrompt = null;  // Limpa o evento
           });
         });
