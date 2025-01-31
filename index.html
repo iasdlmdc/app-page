@@ -10,7 +10,7 @@
   <button id="register-sw-btn">Registrar Service Worker</button>
 
   <script>
-    let deferredPrompt; // Variável para armazenar o evento 'beforeinstallprompt'
+    let deferredPrompt;
 
     // Função para registrar o Service Worker
     function registerServiceWorker() {
@@ -27,33 +27,34 @@
       }
     }
 
-    // Event listener para o botão de registro do Service Worker
+    // Capturando o evento beforeinstallprompt
+    window.addEventListener('beforeinstallprompt', (event) => {
+      console.log('beforeinstallprompt disparado');
+      // Previne o comportamento padrão do navegador
+      event.preventDefault();
+      deferredPrompt = event;
+
+      // Exibindo um botão para o usuário adicionar à tela inicial
+      const installButton = document.createElement('button');
+      installButton.textContent = 'Adicionar à Tela Inicial';
+      document.body.appendChild(installButton);
+
+      installButton.addEventListener('click', () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt(); // Mostra o prompt de instalação
+          deferredPrompt.userChoice
+            .then((choiceResult) => {
+              console.log('Resultado da escolha: ', choiceResult.outcome); // 'accepted' ou 'dismissed'
+              deferredPrompt = null; // Limpa a variável
+            });
+        }
+      });
+    });
+
+    // Evento de registro do botão
     document.getElementById('register-sw-btn').addEventListener('click', () => {
       console.log('Botão de registro do Service Worker clicado');
       registerServiceWorker();
-      
-      // Forçando a exibição do prompt de instalação manualmente
-      if (deferredPrompt) {
-        console.log('Mostrando o prompt de instalação');
-        deferredPrompt.prompt(); // Mostra o prompt de instalação
-        deferredPrompt.userChoice
-          .then((choiceResult) => {
-            console.log('Resultado da escolha: ', choiceResult.outcome); // 'accepted' ou 'dismissed'
-            deferredPrompt = null; // Limpa a variável após o prompt ser mostrado
-          });
-      }
-    });
-
-    // Escutando o evento 'beforeinstallprompt'
-    window.addEventListener('beforeinstallprompt', (event) => {
-      console.log('beforeinstallprompt disparado');
-      // Previne o comportamento padrão do navegador (que não mostra o prompt)
-      event.preventDefault();
-      // Armazenamos o evento para ser chamado mais tarde
-      deferredPrompt = event;
-
-      // Log para confirmar que o evento foi disparado
-      console.log('beforeinstallprompt capturado');
     });
 
     // Verificando se o PWA foi instalado
