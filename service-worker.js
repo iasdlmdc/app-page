@@ -3,9 +3,9 @@ self.addEventListener('install', function(event) {
     caches.open('v1').then(function(cache) {
       return cache.addAll([
         '/',
-        '/index.html',
-        '/icone-192x192.png',
-        '/icone-512x512.png'
+        'iasdlmdc/app-page/index.html',
+        'iasdlmdc/app-page/icone-192x192.png',
+        'iasdlmdc/app-page/icone-512x512.png'
       ]);
     })
   );
