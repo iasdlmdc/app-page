@@ -24,6 +24,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-direction: column;
         height: 100vh;
         margin: 0;
         background-color: #ffffff;
@@ -31,18 +32,26 @@
       .message {
         font-size: 1.5em;
         color: #000000;
+        text-align: center;
+        margin-top: 20px;
+      }
+      img {
+        width: 80%;  /* Ajuste o tamanho da imagem */
+        max-width: 600px;
+        border-radius: 10px;
       }
     </style>
   </head>
   <body>
-    <!-- Mensagem temporária -->
-    <div class="message">Aguarde enquanto você é redirecionado...</div>
+    <!-- Exibe a imagem e a mensagem de espera -->
+    <img src="https://retornar.com.br/wp-content/uploads/2022/03/M-29-2-scaled-1.jpg" alt="Imagem de espera">
+    <div class="message">Aguarde, você será redirecionado...</div>
 
     <script>
-      // Espera 2 segundos antes de redirecionar
+      // Espera 5 segundos antes de redirecionar
       setTimeout(function() {
         window.location.href = "https://linktr.ee/iasdlm.dc";
-      }, 5000);
+      }, 5000);  // Aguardar 5000 milissegundos (5 segundos)
     </script>
   </body>
 </html>
