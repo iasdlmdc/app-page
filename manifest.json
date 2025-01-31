@@ -1,19 +1,19 @@
 {
   "name": "IASD Leônidas",
   "short_name": "Leônidas",
-  "description": "Acesse o Linktr.ee de forma fácil",
+  "description": "Acesse todos os meus links importantes.",
   "start_url": "https://linktr.ee/iasdlm.dc",
-  "display": "standalone",  // Isso garante que o atalho será tratado como uma "web app"
+  "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#4CAF50",
+  "theme_color": "#000000",
   "icons": [
     {
-      "src": "https://iasdlmdc.github.io/app-page/icon-192x192.png",
+      "src": "icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://iasdlmdc.github.io/app-page/icon-512x512.png",
+      "src": "icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
