@@ -1,101 +1,35 @@
-<!-- index.html -->
+<!DOCTYPE html>
 <html lang="pt-br">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IASD Leônidas</title>
-
-    <!-- Link para o manifesto -->
-    <link rel="manifest" href="/app-page/manifest.json">
-
-    <!-- Registra o Service Worker -->
-    <script>
-      let deferredPrompt;  // Para armazenar o prompt de instalação
-
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/app-page/service-worker.js').then(function(registration) {
-          console.log('Service Worker registrado com sucesso:', registration.scope);
-        }).catch(function(error) {
-          console.log('Falha no registro do Service Worker:', error);
-        });
-      }
-
-      // Evento disparado quando o navegador detecta que a PWA pode ser instalada
-      window.addEventListener('beforeinstallprompt', function(event) {
-        console.log('beforeinstallprompt disparado!');  // Verifique se o evento é disparado
-        // Previne o prompt automático
-        event.preventDefault();
-        // Armazena o evento para usar mais tarde
-        deferredPrompt = event;
-
-        // Exibe o botão de "Adicionar à Tela Inicial"
-        const installButton = document.getElementById('installButton');
-        installButton.style.display = 'block';  // Torna o botão visível
-
-        // Quando o botão for clicado, exibe o prompt de instalação
-        installButton.addEventListener('click', function() {
-          installButton.style.display = 'none';  // Esconde o botão após o clique
-          deferredPrompt.prompt();  // Exibe o prompt de instalação
-          
-          // Espera o usuário interagir com o prompt
-          deferredPrompt.userChoice.then(function(choiceResult) {
-            console.log('Resultado da instalação:', choiceResult.outcome);  // 'accepted' ou 'dismissed'
-            deferredPrompt = null;  // Limpa o evento
-          });
-        });
-      });
-    </script>
-
-    <style>
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        height: 100vh;
-        margin: 0;
-        background-color: #ffffff;
-      }
-      .message {
-        font-size: 1.5em;
-        color: #000000;
-        text-align: center;
-        margin-top: 20px;
-      }
-      img {
-        width: 80%;  /* Ajuste o tamanho da imagem */
-        max-width: 600px;
-        border-radius: 10px;
-      }
-      #installButton {
-        display: none;  /* Inicialmente oculto */
-        margin-top: 20px;
-        padding: 10px 20px;
-        font-size: 1.2em;
-        background-color: #000000;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-      #installButton:hover {
-        background-color: #333333;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Exibe a imagem e a mensagem de espera -->
-    <img src="https://retornar.com.br/wp-content/uploads/2022/03/M-29-2-scaled-1.jpg" alt="Imagem de espera">
-    <div class="message">Aguarde, você será redirecionado...</div>
-
-    <!-- Botão para instalar a PWA -->
-    <button id="installButton">Adicionar à Tela Inicial</button>
+    <title>Salvar Atalho</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Meu Atalho">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon" href="icone.png">
+</head>
+<body>
+    <h1>Salvar Atalho na Tela Inicial</h1>
+    <button id="salvarAtalhoBtn">Salvar Atalho</button>
 
     <script>
-      // Espera 5 segundos antes de redirecionar
-      setTimeout(function() {
-        window.location.href = "https://linktr.ee/iasdlm.dc";
-      }, 5000);  // Aguardar 5000 milissegundos (5 segundos)
+        // Função para mostrar a sugestão de salvar atalho
+        function mostrarSugestaoDeSalvarAtalho() {
+            var caminho = 'https://linktr.ee/iasdlm.dc';
+
+            if (window.matchMedia('(display-mode: standalone)').matches) {
+                alert('Este site já está instalado na sua tela inicial.');
+            } else if (navigator.userAgent.includes('Safari') && !window.matchMedia('(display-mode: standalone)').matches) {
+                alert('Para salvar este atalho: ' + caminho + ' na tela inicial, toque no ícone de compartilhamento e selecione "Adicionar à Tela de Início".');
+            } else {
+                alert('Para salvar este atalho: ' + caminho + ' na tela inicial, toque no menu do navegador e selecione "Adicionar à Tela de Início".');
+            }
+        }
+
+        document.getElementById('salvarAtalhoBtn').addEventListener('click', mostrarSugestaoDeSalvarAtalho);
     </script>
-  </body>
+</body>
 </html>
