@@ -3,16 +3,18 @@
   "short_name": "Leônidas",
   "icons": [
     {
-      "src": "icon-192x192.png",
+      "src": "iasdlmdc/app-page/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icon-512x512.png",
+      "src": "iasdlmdc/app-page/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ],
   "start_url": "https://linktr.ee/iasdlm.dc",
-  "display": "standalone"
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000"
 }
