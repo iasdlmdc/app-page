@@ -3,87 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IASD - Leônidas</title>
-  <link rel="icon" href="https://iasdlmdc.github.io/app-page/icon-192x192.png" type="image/png">
-  <link rel="manifest" href="manifest.json">  <!-- Adicionando o manifest.json para configurar o ícone e nome do atalho -->
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 20px;
-    }
-    .btn {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-    .btn:hover {
-      background-color: #45a049;
-    }
-    img {
-      width: 100px;
-      height: 100px;
-      border-radius: 10px;
-      margin-top: 20px;
-    }
-  </style>
+  <link rel="manifest" href="manifest.json">
+  <title>Linktree</title>
 </head>
 <body>
-  <h1>Adicionar o Atalho à Tela Inicial</h1>
-  <img src="https://iasdlmdc.github.io/app-page/icon-192x192.png" alt="Ícone do Atalho" />
-  <h2>Nome do Atalho: Leônidas</h2>
-
-  <div id="android-instructions" style="display:none;">
-    <p>Para adicionar o atalho no seu dispositivo Android:</p>
-    <ol>
-      <li>Abra o menu de opções (ícone de três pontos) no canto superior direito.</li>
-      <li>Selecione <strong>Adicionar à tela inicial</strong>.</li>
-      <li>Escolha o nome "Leônidas" e toque em <strong>Adicionar</strong>.</li>
-    </ol>
-  </div>
-
-  <div id="ios-instructions" style="display:none;">
-    <p>Para adicionar o atalho no seu dispositivo iOS:</p>
-    <ol>
-      <li>Toque no ícone de compartilhamento (quadrado com a seta para cima).</li>
-      <li>Selecione <strong>Adicionar à Tela de Início</strong>.</li>
-      <li>Escolha o nome "Leônidas" e toque em <strong>Adicionar</strong>.</li>
-    </ol>
-  </div>
-
-  <button class="btn" id="open-url">Abrir Linktree</button>
-
   <script>
-    // Detecta o sistema operacional do usuário
-    function detectOS() {
-      const userAgent = window.navigator.userAgent.toLowerCase();
-      if (userAgent.indexOf("android") > -1) {
-        document.getElementById("android-instructions").style.display = "block";
-      } else if (userAgent.indexOf("iphone") > -1 || userAgent.indexOf("ipad") > -1) {
-        document.getElementById("ios-instructions").style.display = "block";
-      } else {
-        alert("Seu dispositivo não foi reconhecido. Siga as instruções gerais do seu navegador.");
-      }
-    }
-
-    // Chama a função para detectar o sistema operacional
-    detectOS();
-
-    // Espera 5 segundos para redirecionar
-    setTimeout(function() {
-      // Redireciona para o Linktree
-      window.location.href = "https://linktr.ee/iasdlm.dc";
-    }, 250);
-
-    // Exibe as instruções após o redirecionamento
-    setTimeout(function() {
-      document.getElementById("android-instructions").style.display = "block";
-      document.getElementById("ios-instructions").style.display = "block";
-    }, 3000);
+    window.location.href ="https://linktr.ee/iasdlm.dc";  // Redireciona para sua página no Linktree
   </script>
 </body>
 </html>
