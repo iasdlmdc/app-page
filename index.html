@@ -1,14 +1,18 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="manifest" href="manifest.json">
-  <title>Linktree</title>
-</head>
-<body>
-  <script>
-    window.location.href ="https://linktr.ee/iasdlm.dc";  // Redireciona para sua página no Linktree
-  </script>
-</body>
+<!-- index.html -->
+<html>
+  <head>
+    <link rel="manifest" href="manifest.json">
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+          console.log('Service Worker registered with scope:', registration.scope);
+        }).catch(function(error) {
+          console.log('Service Worker registration failed:', error);
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <!-- Conteúdo da sua página Linktree -->
+  </body>
 </html>
