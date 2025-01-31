@@ -10,6 +10,8 @@
 
     <!-- Registra o Service Worker -->
     <script>
+      let deferredPrompt;  // Para armazenar o prompt de instalação
+
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/app-page/service-worker.js').then(function(registration) {
           console.log('Service Worker registrado com sucesso:', registration.scope);
@@ -17,6 +19,30 @@
           console.log('Falha no registro do Service Worker:', error);
         });
       }
+
+      // Evento disparado quando o navegador detecta que a PWA pode ser instalada
+      window.addEventListener('beforeinstallprompt', function(event) {
+        // Previne o prompt automático
+        event.preventDefault();
+        // Armazena o evento para usar mais tarde
+        deferredPrompt = event;
+        
+        // Exibe o botão de "Adicionar à Tela Inicial"
+        const installButton = document.getElementById('installButton');
+        installButton.style.display = 'block';
+
+        // Quando o botão for clicado, exibe o prompt de instalação
+        installButton.addEventListener('click', function() {
+          installButton.style.display = 'none';  // Esconde o botão após o clique
+          deferredPrompt.prompt();  // Exibe o prompt de instalação
+          
+          // Espera o usuário interagir com o prompt
+          deferredPrompt.userChoice.then(function(choiceResult) {
+            console.log(choiceResult.outcome);  // Resultado: 'accepted' ou 'dismissed'
+            deferredPrompt = null;  // Limpa o evento
+          });
+        });
+      });
     </script>
 
     <style>
@@ -40,12 +66,29 @@
         max-width: 600px;
         border-radius: 10px;
       }
+      #installButton {
+        display: none;  /* Inicialmente oculto */
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1.2em;
+        background-color: #000000;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      #installButton:hover {
+        background-color: #333333;
+      }
     </style>
   </head>
   <body>
     <!-- Exibe a imagem e a mensagem de espera -->
     <img src="https://retornar.com.br/wp-content/uploads/2022/03/M-29-2-scaled-1.jpg" alt="Imagem de espera">
     <div class="message">Aguarde, você será redirecionado...</div>
+
+    <!-- Botão para instalar a PWA -->
+    <button id="installButton">Adicionar à Tela Inicial</button>
 
     <script>
       // Espera 5 segundos antes de redirecionar
