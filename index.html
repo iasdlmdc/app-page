@@ -10,6 +10,8 @@
   <button id="register-sw-btn">Registrar Service Worker</button>
 
   <script>
+    let deferredPrompt; // Variável para armazenar o evento 'beforeinstallprompt'
+
     // Função para registrar o Service Worker
     function registerServiceWorker() {
       if ('serviceWorker' in navigator) {
@@ -25,8 +27,34 @@
       }
     }
 
-    // Event listener para o botão
+    // Event listener para o botão de registro do Service Worker
     document.getElementById('register-sw-btn').addEventListener('click', registerServiceWorker);
+
+    // Escutando o evento 'beforeinstallprompt'
+    window.addEventListener('beforeinstallprompt', (event) => {
+      // Previne o comportamento padrão do navegador (que não mostra o prompt)
+      event.preventDefault();
+      // Armazenamos o evento para ser chamado mais tarde
+      deferredPrompt = event;
+      console.log('beforeinstallprompt disparado');
+
+      // Exibe um botão ou outro mecanismo para que o usuário possa instalar
+      const installButton = document.createElement('button');
+      installButton.textContent = 'Adicionar à Tela Inicial';
+      document.body.appendChild(installButton);
+
+      // Quando o usuário clicar no botão, mostramos o prompt de instalação
+      installButton.addEventListener('click', () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt(); // Mostra o prompt de instalação
+          deferredPrompt.userChoice
+            .then((choiceResult) => {
+              console.log(choiceResult.outcome); // 'accepted' ou 'dismissed'
+              deferredPrompt = null; // Limpa a variável após o prompt ser mostrado
+            });
+        }
+      });
+    });
   </script>
 </body>
 </html>
