@@ -1,77 +1,25 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Service Worker e Atalho</title>
-  <link rel="manifest" href="manifest.json">
+  <title>Adicionar Atalho PWA</title>
+  <link rel="manifest" href="manifest.json"> <!-- Referência ao arquivo manifest -->
 </head>
 <body>
-  <button id="register-sw-btn">Registrar Service Worker</button>
-  <button id="install-btn" style="display:none;">Adicionar à Tela Inicial</button>
+  <h1>Bem-vindo ao meu site!</h1>
+  
+  <p>Este é um exemplo de Progressive Web App (PWA). Se quiser adicionar um atalho à sua tela inicial, marque a opção abaixo:</p>
 
-  <script>
-    let deferredPrompt; // Variável para armazenar o evento 'beforeinstallprompt'
+  <!-- Checkbox para ativar o PWA -->
+  <label>
+    <input type="checkbox" id="enableServiceWorker" />
+    Desejo adicionar à tela inicial
+  </label>
 
-    // Função para registrar o Service Worker
-    function registerServiceWorker() {
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js')
-          .then((registration) => {
-            console.log('Service Worker registrado com sucesso: ', registration);
-            // Após o registro do Service Worker, habilitamos o botão de instalação
-            document.getElementById('install-btn').style.display = 'inline-block'; // Habilita o botão
-          })
-          .catch((error) => {
-            console.log('Falha ao registrar o Service Worker: ', error);
-          });
-      } else {
-        console.log('Service Workers não são suportados neste navegador.');
-      }
-    }
+  <!-- Botão para registrar o atalho -->
+  <button id="registerShortcutBtn" style="display:none;">Adicionar à Tela Inicial</button>
 
-    // Event listener para o botão de registro do Service Worker
-    document.getElementById('register-sw-btn').addEventListener('click', () => {
-      console.log('Botão de registro do Service Worker clicado');
-      registerServiceWorker();
-    });
-
-    // Capturando o evento 'beforeinstallprompt'
-    window.addEventListener('beforeinstallprompt', (event) => {
-      console.log('beforeinstallprompt disparado');
-      // Previne o comportamento padrão do navegador
-      event.preventDefault();
-      // Armazenamos o evento para ser chamado manualmente mais tarde
-      deferredPrompt = event;
-    });
-
-    // Event listener para o novo botão de instalação
-    document.getElementById('install-btn').addEventListener('click', () => {
-      console.log('Botão de instalação clicado');
-      if (deferredPrompt) {
-        // Agora o prompt de instalação será disparado
-        deferredPrompt.prompt(); // Mostra o prompt de instalação
-        deferredPrompt.userChoice
-          .then((choiceResult) => {
-            console.log('Resultado da escolha: ', choiceResult.outcome); // 'accepted' ou 'dismissed'
-            if (choiceResult.outcome === 'accepted') {
-              console.log('Usuário aceitou a instalação');
-            } else {
-              console.log('Usuário rejeitou a instalação');
-            }
-            deferredPrompt = null; // Limpa a variável após o prompt ser mostrado
-          })
-          .catch((err) => {
-            console.log('Erro ao mostrar o prompt de instalação: ', err);
-          });
-      }
-    });
-
-    // Verificando se o PWA foi instalado
-    window.addEventListener('appinstalled', (event) => {
-      console.log('PWA foi instalado!');
-    });
-
-  </script>
+  <script src="app.js"></script>
 </body>
 </html>
