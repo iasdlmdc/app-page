@@ -1,10 +1,12 @@
+let deferredPrompt;
+
 if ('serviceWorker' in navigator) {
   const enableServiceWorkerCheckbox = document.getElementById('enableServiceWorker');
   const registerShortcutBtn = document.getElementById('registerShortcutBtn');
 
   // Função para registrar o Service Worker
   const registerServiceWorker = () => {
-    navigator.serviceWorker.register('https://iasdlmdc.github.io/app-page/service-worker.js') // URL do arquivo do Service Worker
+    navigator.serviceWorker.register('https://iasdlmdc.github.io/app-page/service-worker.js') // Caminho absoluto
       .then((registration) => {
         console.log('Service Worker registrado com sucesso:', registration);
       })
@@ -20,23 +22,34 @@ if ('serviceWorker' in navigator) {
       registerServiceWorker();
 
       // Exibe o botão "Adicionar à Tela Inicial"
-      registerShortcutBtn.style.display = 'inline-block'; 
+      registerShortcutBtn.style.display = 'inline-block';
+
+      // Aciona o prompt de instalação
+      if (deferredPrompt) {
+        // Exibe o prompt de instalação
+        registerShortcutBtn.addEventListener('click', () => {
+          deferredPrompt.prompt();
+          deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('Usuário aceitou o prompt de instalação');
+            } else {
+              console.log('Usuário rejeitou o prompt de instalação');
+            }
+            deferredPrompt = null; // Resetando o prompt
+          });
+        });
+      }
     } else {
       // Esconde o botão se o checkbox for desmarcado
       registerShortcutBtn.style.display = 'none';
     }
   });
 
-  // Função para adicionar o atalho à tela inicial
-  const addShortcutToHomeScreen = () => {
-    // Neste caso, o link do PWA está sendo direcionado para a página do Linktree
-    if ('launchQueue' in window) {
-      navigator.launchQueue.setAppLaunchUrl('https://linktr.ee/iasdlm.dc'); // URL personalizada para o Linktree
-    }
-
-    alert('Atalho adicionado à tela inicial com sucesso!');
-  };
-
-  // Ao clicar no botão "Adicionar à Tela Inicial"
-  registerShortcutBtn.addEventListener('click', addShortcutToHomeScreen);
+  // Captura o evento beforeinstallprompt
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Previne que o prompt seja exibido automaticamente
+    e.preventDefault();
+    // Armazena o evento para ser disparado mais tarde
+    deferredPrompt = e;
+  });
 }
