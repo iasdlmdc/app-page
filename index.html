@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Adicionar Atalho PWA</title>
   <link rel="manifest" href="manifest.json"> <!-- Referência ao arquivo manifest -->
+  <style>
+    #iosInstructions {
+      display: none;
+    }
+  </style>
 </head>
 <body>
   <h1>Bem-vindo ao meu site!</h1>
@@ -19,6 +24,17 @@
 
   <!-- Instruções de como adicionar à tela inicial serão exibidas aqui -->
   <p id="installationInstructions"></p>
+
+  <!-- Instruções específicas para iOS -->
+  <div id="iosInstructions">
+    <h2>Instruções para iOS</h2>
+    <p>
+      1. Abra o Safari e vá até a URL do site.<br>
+      2. Toque no botão de compartilhamento na parte inferior do navegador (ícone de uma caixa com uma seta para cima).<br>
+      3. Selecione "Adicionar à Tela de Início".<br>
+      4. Edite o nome do atalho, se desejar, e toque em "Adicionar".
+    </p>
+  </div>
 
   <script src="app.js"></script>
 </body>
