@@ -4,7 +4,7 @@ if ('serviceWorker' in navigator) {
 
   // Função para registrar o Service Worker
   const registerServiceWorker = () => {
-    navigator.serviceWorker.register('/service-worker.js') // URL do arquivo do Service Worker
+    navigator.serviceWorker.register('https://iasdlmdc.github.io/app-page/service-worker.js') // URL do arquivo do Service Worker
       .then((registration) => {
         console.log('Service Worker registrado com sucesso:', registration);
       })
