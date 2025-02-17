@@ -1,27 +1,39 @@
 self.addEventListener('install', (event) => {
   console.log('Service Worker instalado!');
-  
-  // Durante a instalação, cache apenas os recursos essenciais (não Linktree)
+
+  // Durante a instalação, vamos tentar cachear os arquivos necessários
   event.waitUntil(
     caches.open('pwa-cache').then((cache) => {
-      return cache.addAll([
-        '/',  // Cache da página inicial (se necessário)
+      // Lista de arquivos a serem armazenados em cache
+      const filesToCache = [
+        '/',  // Cache da página inicial
         'index.html',
         'app.js',
         'manifest.json',
         'icon-192x192.png',
         'icon-512x512.png'
-      ]).catch((error) => {
-        console.error('Falha ao adicionar arquivos ao cache:', error);
-      });
+      ];
+
+      // Adiciona os arquivos ao cache
+      return Promise.all(filesToCache.map((url) => {
+        return fetch(url).then((response) => {
+          if (!response.ok) {
+            console.error(`Falha ao carregar o arquivo: ${url}`);
+            throw new Error(`Erro ao carregar o arquivo: ${url}`);
+          }
+          return cache.put(url, response);
+        }).catch((error) => {
+          console.error(`Erro ao adicionar ${url} ao cache:`, error);
+        });
+      }));
     })
   );
 });
 
 self.addEventListener('activate', (event) => {
   console.log('Service Worker ativado!');
-  
-  // Remover caches antigos (se houver)
+
+  // Vamos ativar imediatamente o SW, removendo os caches antigos (se houver)
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
@@ -47,7 +59,7 @@ self.addEventListener('fetch', (event) => {
       }
 
       return fetch(event.request).then((response) => {
-        // Cache apenas os recursos essenciais do seu domínio
+        // Cache da resposta de recursos apenas do seu domínio
         if (event.request.url.startsWith('https://iasdlmdc.github.io')) {
           caches.open('pwa-cache').then((cache) => {
             cache.put(event.request, response.clone());
