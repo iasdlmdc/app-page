@@ -2,8 +2,8 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open('my-cache').then(cache => {
       const filesToCache = [
-        '/index.html',  // O arquivo HTML
-        '/app.js'       // O arquivo JavaScript
+        '/app-page/index.html',  // Caminho correto do arquivo HTML
+        '/app-page/app.js'       // Caminho correto do arquivo JS
       ];
 
       console.log('Adicionando arquivos ao cache: ', filesToCache);
