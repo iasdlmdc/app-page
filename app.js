@@ -9,10 +9,10 @@ if ('serviceWorker' in navigator) {
 
   // Exibe o botão "Instalar" somente em Android ou quando o dispositivo não for iOS
   if (isAndroid) {
-    // Android pode criar o atalho automaticamente, então exibe o botão "Instalar"
+    // Exibe o botão de "Instalar" se o dispositivo for Android
     registerShortcutBtn.style.display = 'inline-block';
   } else if (isIOS) {
-    // iOS não tem suporte completo ao PWA, então exibe instruções para instalação manual
+    // Para iOS, exibe as instruções manuais de como adicionar o atalho
     instructions.innerHTML = `
       <p>Para adicionar o atalho à tela inicial, siga estas instruções:</p>
       <ol>
@@ -21,17 +21,17 @@ if ('serviceWorker' in navigator) {
         <li>Escolha um nome para o atalho e toque em "Adicionar".</li>
       </ol>
     `;
-  } else {
-    // Para outros sistemas operacionais, mostra instruções padrões
-    instructions.innerHTML = "<p>Para adicionar o atalho à tela inicial, use as opções do navegador.</p>";
   }
 
-  // Função para instalar o atalho automaticamente (para Android)
+  // Função para mostrar a instrução quando o botão é clicado no Android
   const addShortcutToHomeScreen = () => {
-    // Para Android, o navegador deve adicionar o PWA automaticamente
-    if ('launchQueue' in window) {
-      navigator.launchQueue.setAppLaunchUrl('https://linktr.ee/iasdlm.dc');
-      alert("Atalho adicionado à tela inicial!");
+    if (isAndroid) {
+      // Quando o usuário clicar em "Instalar" no Android
+      // O PWA será instalado automaticamente, com base nas configurações do manifest.json
+      alert("Atalho será adicionado à tela inicial!");
+
+      // Caso precise instruções para o Android:
+      instructions.innerHTML = "<p>O atalho será adicionado automaticamente à tela inicial!</p>";
     }
   };
 
