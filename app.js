@@ -23,21 +23,6 @@ if ('serviceWorker' in navigator) {
     }
   };
 
-  // Função para obter a URL do "start_url" do manifest.json
-  const getStartUrl = () => {
-    const link = document.querySelector('link[rel="manifest"]');
-    if (link) {
-      fetch(link.href)
-        .then((response) => response.json())
-        .then((data) => {
-          return data.start_url;  // Retorna a URL configurada no start_url do manifest.json
-        })
-        .catch((error) => {
-          console.error('Falha ao carregar o manifest:', error);
-        });
-    }
-  };
-
   // Registra o Service Worker assim que a página for carregada
   registerServiceWorker();
 
@@ -52,17 +37,11 @@ if ('serviceWorker' in navigator) {
     // Exibe as instruções de instalação personalizadas
     const instructions = getDeviceInstructions();
     document.getElementById('installationInstructions').innerText = instructions;
-
-    // Obtemos o start_url do manifest
-    getStartUrl().then((startUrl) => {
-      // Agora, você pode usar o startUrl para o redirecionamento futuro, sem redirecionar imediatamente
-      // Aqui você poderia salvar a URL para algum uso posterior, se necessário.
-      console.log('Start URL do PWA:', startUrl);
-    });
   });
 
   // Quando o botão de redirecionamento for clicado
   redirectToLinktreeBtn.addEventListener('click', () => {
+    // Aqui o Linktree será aberto, pois o start_url é uma URL externa
     window.location.href = 'https://linktr.ee/iasdlm.dc';  // Redireciona para o Linktree
   });
 }
