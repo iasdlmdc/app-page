@@ -1,74 +1,33 @@
-self.addEventListener('install', (event) => {
-  console.log('Service Worker instalado!');
-
-  // Durante a instalação, vamos tentar cachear os arquivos necessários
+self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open('pwa-cache').then((cache) => {
-      // Lista de arquivos a serem armazenados em cache
-      const filesToCache = [
-        '/',  // Cache da página inicial
-        'index.html',
-        'app.js',
-        'manifest.json',
-        'icon-192x192.png',
-        'icon-512x512.png'
-      ];
-
-      // Adiciona os arquivos ao cache
-      return Promise.all(filesToCache.map((url) => {
-        return fetch(url).then((response) => {
-          if (!response.ok) {
-            console.error(`Falha ao carregar o arquivo: ${url}`);
-            throw new Error(`Erro ao carregar o arquivo: ${url}`);
-          }
-          return cache.put(url, response);
-        }).catch((error) => {
-          console.error(`Erro ao adicionar ${url} ao cache:`, error);
-        });
-      }));
+    caches.open('my-cache').then(cache => {
+      // Aqui, adicione apenas os arquivos internos ao seu domínio para cache
+      return cache.addAll([
+        '/app-page/index.html', // Exemplo de arquivo local
+        '/app-page/style.css',  // Arquivo CSS
+        '/app-page/script.js'   // Arquivo JS
+      ]);
     })
   );
 });
 
-self.addEventListener('activate', (event) => {
+self.addEventListener('activate', event => {
   console.log('Service Worker ativado!');
-
-  // Vamos ativar imediatamente o SW, removendo os caches antigos (se houver)
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName !== 'pwa-cache') {
-            console.log('Cache antigo removido:', cacheName);
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
-  );
 });
 
-self.addEventListener('fetch', (event) => {
-  console.log('Interceptando requisição para:', event.request.url);
-
-  // Tenta retornar os dados do cache antes de fazer a requisição pela rede
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-
-      return fetch(event.request).then((response) => {
-        // Cache da resposta de recursos apenas do seu domínio
-        if (event.request.url.startsWith('https://iasdlmdc.github.io')) {
-          caches.open('pwa-cache').then((cache) => {
-            cache.put(event.request, response.clone());
-          });
-        }
-        return response;
-      }).catch((error) => {
-        console.error('Falha ao buscar na rede:', error);
-      });
-    })
-  );
+// Interceptar requisições apenas para arquivos do mesmo domínio
+self.addEventListener('fetch', event => {
+  const url = new URL(event.request.url);
+  
+  // Se a requisição for para o mesmo domínio, cacheia
+  if (url.origin === location.origin) {
+    event.respondWith(
+      caches.match(event.request).then(response => {
+        return response || fetch(event.request);
+      })
+    );
+  } else {
+    // Caso contrário, apenas deixe a requisição passar
+    event.respondWith(fetch(event.request));
+  }
 });
