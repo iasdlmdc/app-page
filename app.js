@@ -1,7 +1,4 @@
 if ('serviceWorker' in navigator) {
-  const enableServiceWorkerCheckbox = document.getElementById('enableServiceWorker');
-  const registerShortcutBtn = document.getElementById('registerShortcutBtn');
-
   // Função para registrar o Service Worker
   const registerServiceWorker = () => {
     navigator.serviceWorker.register('https://iasdlmdc.github.io/app-page/service-worker.js') // Caminho absoluto
@@ -13,24 +10,37 @@ if ('serviceWorker' in navigator) {
       });
   };
 
-  // Quando o checkbox é marcado, o botão de instalação aparece
-  enableServiceWorkerCheckbox.addEventListener('change', (event) => {
-    if (event.target.checked) {
-      // Registra o Service Worker
-      registerServiceWorker();
-      // Exibe o botão "Adicionar à Tela Inicial"
-      registerShortcutBtn.style.display = 'inline-block';
+  // Função para detectar o dispositivo (Android ou iOS)
+  const getDeviceInstructions = () => {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    
+    if (/android/i.test(userAgent)) {
+      return 'Para adicionar à sua tela inicial no Android, clique no ícone de três pontos no canto superior direito do navegador e selecione "Adicionar à tela inicial".';
+    } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+      return 'Para adicionar à sua tela inicial no iOS, clique no botão "Compartilhar" no canto inferior e selecione "Adicionar à Tela de Início".';
     } else {
-      // Esconde o botão se o checkbox não estiver marcado
-      registerShortcutBtn.style.display = 'none';
+      return 'Para adicionar à sua tela inicial, siga as instruções do seu dispositivo.';
     }
+  };
+
+  // Registra o Service Worker assim que a página for carregada
+  registerServiceWorker();
+
+  // Obtém o elemento do botão de instalação
+  const installShortcutBtn = document.getElementById('installShortcutBtn');
+  
+  // Obtém o elemento do botão para redirecionamento
+  const redirectToLinktreeBtn = document.getElementById('redirectToLinktreeBtn');
+
+  // Quando o botão de instalação for clicado
+  installShortcutBtn.addEventListener('click', () => {
+    // Exibe as instruções de instalação personalizadas
+    const instructions = getDeviceInstructions();
+    document.getElementById('installationInstructions').innerText = instructions;
   });
 
-  // Quando o botão "Adicionar à Tela Inicial" é clicado
-  registerShortcutBtn.addEventListener('click', () => {
-    // Simula a criação do atalho
-    alert('O atalho foi adicionado à sua tela inicial!');
-    // Pode-se dar instruções para o usuário adicionar o atalho manualmente
-    alert('Para adicionar este atalho à sua tela inicial, clique no ícone de três pontos no canto superior direito do navegador e selecione "Adicionar à tela inicial".');
+  // Quando o botão de redirecionamento for clicado
+  redirectToLinktreeBtn.addEventListener('click', () => {
+    window.location.href = 'https://linktr.ee/iasdlm.dc';  // Redireciona para o Linktree
   });
 }
