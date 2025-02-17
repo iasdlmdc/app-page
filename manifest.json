@@ -3,7 +3,7 @@
   "short_name": "Leônidas",
   "description": "Acesse os links da IASD Leônidas facilmente!",
   "start_url": "https://linktr.ee/iasdlm.dc",  // URL do atalho
-  "display": "standalone",  // Faz o PWA rodar como um app
+  "display": "browser",  // Faz o PWA rodar como um app
   "background_color": "#ffffff",
   "theme_color": "#000000",
   "icons": [
