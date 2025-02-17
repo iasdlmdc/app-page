@@ -23,22 +23,6 @@ if ('serviceWorker' in navigator) {
 
       // Exibe o botão "Adicionar à Tela Inicial"
       registerShortcutBtn.style.display = 'inline-block';
-
-      // Aciona o prompt de instalação
-      if (deferredPrompt) {
-        // Exibe o prompt de instalação
-        registerShortcutBtn.addEventListener('click', () => {
-          deferredPrompt.prompt();
-          deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-              console.log('Usuário aceitou o prompt de instalação');
-            } else {
-              console.log('Usuário rejeitou o prompt de instalação');
-            }
-            deferredPrompt = null; // Resetando o prompt
-          });
-        });
-      }
     } else {
       // Esconde o botão se o checkbox for desmarcado
       registerShortcutBtn.style.display = 'none';
@@ -51,5 +35,22 @@ if ('serviceWorker' in navigator) {
     e.preventDefault();
     // Armazena o evento para ser disparado mais tarde
     deferredPrompt = e;
+
+    // Quando o botão de instalação for clicado
+    registerShortcutBtn.addEventListener('click', () => {
+      // Exibe o prompt
+      deferredPrompt.prompt();
+
+      // Quando o usuário escolher se quer ou não instalar
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('Usuário aceitou o prompt de instalação');
+        } else {
+          console.log('Usuário rejeitou o prompt de instalação');
+        }
+        // Após a escolha, descarta o evento
+        deferredPrompt = null;
+      });
+    });
   });
 }
