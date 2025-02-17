@@ -1,47 +1,55 @@
+// Verifique se o navegador suporta service workers
 if ('serviceWorker' in navigator) {
-  // Função para registrar o Service Worker
-  const registerServiceWorker = () => {
-    navigator.serviceWorker.register('https://iasdlmdc.github.io/app-page/service-worker.js') // Caminho absoluto
-      .then((registration) => {
-        console.log('Service Worker registrado com sucesso:', registration);
-      })
-      .catch((error) => {
-        console.error('Falha ao registrar o Service Worker:', error);
-      });
-  };
+  navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+    console.log('Service Worker registrado com sucesso:', registration);
+  }).catch(function(error) {
+    console.log('Falha ao registrar o Service Worker:', error);
+  });
+}
 
-  // Função para detectar o dispositivo (Android ou iOS)
-  const getDeviceInstructions = () => {
-    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-    
-    if (/android/i.test(userAgent)) {
-      return 'Para adicionar à sua tela inicial no Android, clique no ícone de três pontos no canto superior direito do navegador e selecione "Adicionar à tela inicial".';
-    } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
-      return 'Para adicionar à sua tela inicial no iOS, clique no botão "Compartilhar" no canto inferior e selecione "Adicionar à Tela de Início".';
+// Verifique se o navegador suporta a instalação de PWA
+let deferredPrompt;
+const installBtn = document.getElementById('installShortcutBtn');
+const redirectBtn = document.getElementById('redirectToLinktreeBtn');
+const instructions = document.getElementById('installationInstructions');
+const iosInstructions = document.getElementById('iosInstructions');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Impedir o mini-infobar de aparecer no mobile
+  e.preventDefault();
+  // Salvar o evento para que possa ser acionado posteriormente
+  deferredPrompt = e;
+  // Mostrar o botão de instalação
+  installBtn.style.display = 'block';
+});
+
+installBtn.addEventListener('click', (e) => {
+  // Ocultar o botão de instalação
+  installBtn.style.display = 'none';
+  // Mostrar o prompt de instalação
+  deferredPrompt.prompt();
+  // Verificar o que o usuário escolheu
+  deferredPrompt.userChoice.then((choiceResult) => {
+    if (choiceResult.outcome === 'accepted') {
+      console.log('Usuário aceitou a instalação do PWA');
     } else {
-      return 'Para adicionar à sua tela inicial, siga as instruções do seu dispositivo.';
+      console.log('Usuário dispensou a instalação do PWA');
     }
-  };
-
-  // Registra o Service Worker assim que a página for carregada
-  registerServiceWorker();
-
-  // Obtém o elemento do botão de instalação
-  const installShortcutBtn = document.getElementById('installShortcutBtn');
-  
-  // Obtém o elemento do botão para redirecionamento
-  const redirectToLinktreeBtn = document.getElementById('redirectToLinktreeBtn');
-
-  // Quando o botão de instalação for clicado
-  installShortcutBtn.addEventListener('click', () => {
-    // Exibe as instruções de instalação personalizadas
-    const instructions = getDeviceInstructions();
-    document.getElementById('installationInstructions').innerText = instructions;
+    deferredPrompt = null;
   });
+});
 
-  // Quando o botão de redirecionamento for clicado
-  redirectToLinktreeBtn.addEventListener('click', () => {
-    // Aqui o Linktree será aberto, pois o start_url é uma URL externa
-    window.location.href = 'https://linktr.ee/iasdlm.dc';  // Redireciona para o Linktree
-  });
+// Redireciona para a página do Linktree
+redirectBtn.addEventListener('click', () => {
+  window.location.href = 'https://linktr.ee/iasdlm.dc';
+});
+
+// Detecta se o navegador é Safari em um dispositivo iOS
+function isIOS() {
+  const userAgent = window.navigator.userAgent;
+  return /iPhone|iPad|iPod/.test(userAgent) && /Safari/.test(userAgent) && !/CriOS/.test(userAgent);
+}
+
+if (isIOS()) {
+  iosInstructions.style.display = 'block';
 }
