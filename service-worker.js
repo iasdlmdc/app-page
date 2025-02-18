@@ -16,7 +16,7 @@ const showProgressBar = () => {
       width++;
       progress.style.width = `${width}%`;
     }
-  }, 100);
+  }, 100); // A barra vai ser preenchida aos poucos (100ms de intervalo)
 };
 
 // Função para esconder a barra de progresso
@@ -26,27 +26,36 @@ const hideProgressBar = () => {
 
 // Verifica se o navegador suporta o evento beforeinstallprompt
 if ('beforeinstallprompt' in window) {
+  // Escuta o evento antes que o prompt seja exibido automaticamente
   window.addEventListener('beforeinstallprompt', (event) => {
-    console.log('beforeinstallprompt disparado');
+    // Previne o comportamento padrão
     event.preventDefault();
     deferredPrompt = event;
 
-    installShortcutBtn.style.display = 'block'; // Exibe o botão
+    // Exibe o botão para o usuário
+    installShortcutBtn.style.display = 'block';
 
-    // Ao clicar no botão "Instalar Atalho"
+    // Ao clicar no botão, mostra o prompt manualmente
     installShortcutBtn.addEventListener('click', () => {
-      console.log('Botão de instalação clicado');
-      showProgressBar();  // Exibe a barra de progresso
-      deferredPrompt.prompt();  // Mostra o prompt
+      // Exibe a barra de progresso enquanto o evento é aguardado
+      showProgressBar();
 
+      // Exibe o prompt manualmente
+      deferredPrompt.prompt();
+
+      // Aguarda a resposta do usuário ao prompt
       deferredPrompt.userChoice.then((choiceResult) => {
-        hideProgressBar();  // Esconde a barra de progresso
+        // Esconde a barra de progresso depois que o prompt for exibido
+        hideProgressBar();
+
         if (choiceResult.outcome === 'accepted') {
           installationInstructions.innerText = 'Atalho instalado com sucesso!';
         } else {
           installationInstructions.innerText = 'Instalação do atalho recusada.';
         }
-        deferredPrompt = null;  // Limpa o evento
+
+        // Limpa a referência do evento
+        deferredPrompt = null;
       });
     });
   });
