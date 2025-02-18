@@ -8,7 +8,7 @@
   <style>
     /* Estilo geral da página */
     body {
-      font-family: Merriweather, ROBOTO;
+      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
       text-align: center;
@@ -50,6 +50,7 @@
       margin-top: 20px;
       font-size: 16px;
       color: #333;
+      display: none; /* Inicialmente escondido */
     }
 
     /* Estilo da imagem de fundo */
@@ -59,21 +60,21 @@
       background-repeat: no-repeat;
       background-position: bottom center; /* A imagem ficará alinhada ao fundo e ao centro */
       width: 100%;
-      height: 350px; /* A imagem terá uma altura fixa de 200px */
+      height: 200px; /* A imagem terá uma altura fixa de 200px */
       margin-top: 40px; /* Dá um espaçamento acima da imagem */
     }
   </style>
 </head>
 <body>
-  <h1>Conheça mais nossa igreja!</h1>
+  <h1>Bem-vindo ao meu site!</h1>
   
-  <p>Aqui você terá diversas informações úteis sobre a IASD Leônidas. Crie o atalho no seu celular ou visite nossa página:</p>
+  <p>Este é um exemplo de Progressive Web App (PWA). Escolha uma das opções abaixo:</p>
 
   <!-- Botões -->
   <button id="installPWABtn">Instalar Atalho</button>
-  <button id="redirectToLinktreeBtn">Visitar Página</button>
+  <button id="redirectToLinktreeBtn">Ir para o Linktree</button>
 
-  <!-- Instruções para instalação -->
+  <!-- Instruções para instalação (inicialmente escondido) -->
   <p id="installationInstructions"></p>
 
   <!-- Imagem de fundo (ficará abaixo dos botões) -->
