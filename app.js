@@ -1,27 +1,6 @@
+const installPWABtn = document.getElementById('installPWABtn');
 const redirectToLinktreeBtn = document.getElementById('redirectToLinktreeBtn');
 const installationInstructions = document.getElementById('installationInstructions');
-
-// Função para mostrar a barra de progresso
-const showProgressBar = () => {
-  const progressBar = document.getElementById('progressBar');
-  const progress = document.getElementById('progress');
-  progressBar.style.display = 'block';
-  let width = 0;
-  const interval = setInterval(() => {
-    if (width >= 100) {
-      clearInterval(interval);
-    } else {
-      width++;
-      progress.style.width = `${width}%`;
-    }
-  }, 100);
-};
-
-// Função para esconder a barra de progresso
-const hideProgressBar = () => {
-  const progressBar = document.getElementById('progressBar');
-  progressBar.style.display = 'none';
-};
 
 // Função para detectar o sistema operacional e exibir as instruções
 const detectOSAndDisplayInstructions = () => {
@@ -42,4 +21,9 @@ detectOSAndDisplayInstructions();
 // Função para redirecionar o usuário para o Linktree
 redirectToLinktreeBtn.addEventListener('click', () => {
   window.location.href = 'https://linktr.ee/iasdlm.dc';  // Redireciona para o Linktree
+});
+
+// Função para exibir o prompt de instalação PWA
+installPWABtn.addEventListener('click', () => {
+  alert('Agora, você pode adicionar o atalho à sua tela inicial utilizando as instruções acima!');
 });
