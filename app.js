@@ -6,7 +6,7 @@ const getDeviceInstructions = () => {
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
   
   if (/android/i.test(userAgent)) {
-    return 'Para adicionar à sua tela inicial no Android, clique no ícone de três pontos no canto superior direito do navegador e selecione "Adicionar à tela inicial".';
+    return 'Para adicionar à sua tela inicial no Android, usando o Chrome, clique no ícone de três pontos no canto superior direito do navegador e selecione "Adicionar à tela inicial".';
   } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
     return 'Para adicionar à sua tela inicial no iOS, clique no botão "Compartilhar" no canto inferior e selecione "Adicionar à Tela de Início".';
   } else {
