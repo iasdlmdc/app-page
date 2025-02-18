@@ -1,6 +1,5 @@
 const installPWABtn = document.getElementById('installPWABtn');
 const redirectToLinktreeBtn = document.getElementById('redirectToLinktreeBtn');
-const installationInstructions = document.getElementById('installationInstructions');
 
 // Função para detectar o dispositivo (Android ou iOS) e exibir as instruções de instalação
 const getDeviceInstructions = () => {
@@ -15,10 +14,10 @@ const getDeviceInstructions = () => {
   }
 };
 
-// Exibe as instruções de acordo com o dispositivo
+// Função para exibir o prompt com as instruções de instalação
 const displayInstallationInstructions = () => {
-  installationInstructions.style.display = 'block'; // Exibe as instruções
-  installationInstructions.innerHTML = getDeviceInstructions();
+  const instructions = getDeviceInstructions();
+  alert(instructions); // Exibe as instruções em um prompt
 };
 
 // Função para redirecionar o usuário para o Linktree
@@ -28,5 +27,5 @@ redirectToLinktreeBtn.addEventListener('click', () => {
 
 // Função para exibir as instruções após o clique no botão de instalação
 installPWABtn.addEventListener('click', () => {
-  displayInstallationInstructions(); // Exibe as instruções de instalação
+  displayInstallationInstructions(); // Exibe as instruções em um prompt
 });
