@@ -1,49 +1,58 @@
-const CACHE_NAME = 'pwa-cache-v1';
-const urlsToCache = [
-  'https://iasdlmdc.github.io/app-page/',  // Caminho completo
-  'https://iasdlmdc.github.io/app-page/index.html',
-  'https://iasdlmdc.github.io/app-page/redirect.html',
-  'https://iasdlmdc.github.io/app-page/manifest.json',
-  'https://iasdlmdc.github.io/app-page/icon-192x192.png',
-  'https://iasdlmdc.github.io/app-page/icon-512x512.png',
-  'https://iasdlmdc.github.io/app-page/app.js'
-];
+let deferredPrompt;
+const installShortcutBtn = document.getElementById('installShortcutBtn');
+const redirectToLinktreeBtn = document.getElementById('redirectToLinktreeBtn');
+const progressBar = document.getElementById('progressBar');
+const progress = document.getElementById('progress');
+const installationInstructions = document.getElementById('installationInstructions');
 
-// Instalando o Service Worker
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log('Service Worker: Caching files');
-      return cache.addAll(urlsToCache).catch((error) => {
-        console.error('Falha ao armazenar no cache', error);
+// Função para mostrar a barra de progresso
+const showProgressBar = () => {
+  progressBar.style.display = 'block';
+  let width = 0;
+  const interval = setInterval(() => {
+    if (width >= 100) {
+      clearInterval(interval);
+    } else {
+      width++;
+      progress.style.width = `${width}%`;
+    }
+  }, 100);
+};
+
+// Função para esconder a barra de progresso
+const hideProgressBar = () => {
+  progressBar.style.display = 'none';
+};
+
+// Verifica se o navegador suporta o evento beforeinstallprompt
+if ('beforeinstallprompt' in window) {
+  window.addEventListener('beforeinstallprompt', (event) => {
+    console.log('beforeinstallprompt disparado');
+    event.preventDefault();
+    deferredPrompt = event;
+
+    installShortcutBtn.style.display = 'block'; // Exibe o botão
+
+    // Ao clicar no botão "Instalar Atalho"
+    installShortcutBtn.addEventListener('click', () => {
+      console.log('Botão de instalação clicado');
+      showProgressBar();  // Exibe a barra de progresso
+      deferredPrompt.prompt();  // Mostra o prompt
+
+      deferredPrompt.userChoice.then((choiceResult) => {
+        hideProgressBar();  // Esconde a barra de progresso
+        if (choiceResult.outcome === 'accepted') {
+          installationInstructions.innerText = 'Atalho instalado com sucesso!';
+        } else {
+          installationInstructions.innerText = 'Instalação do atalho recusada.';
+        }
+        deferredPrompt = null;  // Limpa o evento
       });
-    })
-  );
-});
+    });
+  });
+}
 
-// Ativando o Service Worker
-self.addEventListener('activate', (event) => {
-  const cacheWhitelist = [CACHE_NAME];
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (!cacheWhitelist.includes(cacheName)) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
-  );
-});
-
-// Recuperando arquivos do cache
-self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      return cachedResponse || fetch(event.request).catch((error) => {
-        console.error('Falha na requisição', error);
-      });
-    })
-  );
+// Função para redirecionar o usuário para o Linktree
+redirectToLinktreeBtn.addEventListener('click', () => {
+  window.location.href = 'https://linktr.ee/iasdlm.dc';  // Redireciona para o Linktree
 });
