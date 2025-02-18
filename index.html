@@ -1,45 +1,70 @@
-const redirectToLinktreeBtn = document.getElementById('redirectToLinktreeBtn');
-const installationInstructions = document.getElementById('installationInstructions');
-
-// Função para mostrar a barra de progresso
-const showProgressBar = () => {
-  const progressBar = document.getElementById('progressBar');
-  const progress = document.getElementById('progress');
-  progressBar.style.display = 'block';
-  let width = 0;
-  const interval = setInterval(() => {
-    if (width >= 100) {
-      clearInterval(interval);
-    } else {
-      width++;
-      progress.style.width = `${width}%`;
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adicionar Atalho PWA</title>
+  <link rel="manifest" href="https://iasdlmdc.github.io/app-page/manifest.json">
+  <style>
+    /* Estilo geral da página */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      background-image: url('https://iasdlmdc.github.io/app-page/background-image.jpg');
+      background-size: cover;
+      background-position: center;
+      color: white;
     }
-  }, 100);
-};
+    
+    h1 {
+      color: #fff;
+      margin-top: 20px;
+      font-size: 36px;
+    }
 
-// Função para esconder a barra de progresso
-const hideProgressBar = () => {
-  const progressBar = document.getElementById('progressBar');
-  progressBar.style.display = 'none';
-};
+    p {
+      font-size: 18px;
+      margin: 20px;
+    }
 
-// Função para detectar o sistema operacional e exibir as instruções
-const detectOSAndDisplayInstructions = () => {
-  const userAgent = navigator.userAgent.toLowerCase();
+    button {
+      padding: 15px 30px;
+      margin: 20px;
+      font-size: 18px;
+      cursor: pointer;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
 
-  if (userAgent.includes('android')) {
-    installationInstructions.innerHTML = 'Para adicionar o atalho à tela inicial no Android:<br>- Abra o menu de opções (os 3 pontos no canto superior direito)<br>- Selecione "Adicionar à tela inicial".';
-  } else if (userAgent.includes('iphone') || userAgent.includes('ipad')) {
-    installationInstructions.innerHTML = 'Para adicionar o atalho à tela inicial no iOS:<br>- Toque no ícone de compartilhamento (quadrado com seta)<br>- Selecione "Adicionar à Tela de Início".';
-  } else {
-    installationInstructions.innerHTML = 'Para adicionar o atalho à tela inicial, siga as instruções do seu dispositivo.';
-  }
-};
+    button:hover {
+      background-color: #45a049;
+      transform: scale(1.1);
+    }
 
-// Verifica o sistema operacional e exibe as instruções
-detectOSAndDisplayInstructions();
+    /* Instruções de instalação */
+    #installationInstructions {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bem-vindo ao meu site!</h1>
+  <p>Este é um exemplo de Progressive Web App (PWA). Escolha uma das opções abaixo:</p>
 
-// Função para redirecionar o usuário para o Linktree
-redirectToLinktreeBtn.addEventListener('click', () => {
-  window.location.href = 'https://linktr.ee/iasdlm.dc';  // Redireciona para o Linktree
-});
+  <!-- Botões -->
+  <button id="installPWABtn">Instalar Atalho</button>
+  <button id="redirectToLinktreeBtn">Ir para o Linktree</button>
+
+  <!-- Instruções para instalação -->
+  <p id="installationInstructions"></p>
+
+  <script src="app.js"></script>
+</body>
+</html>
