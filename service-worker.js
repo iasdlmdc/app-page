@@ -1,67 +1,45 @@
-let deferredPrompt;
-const installShortcutBtn = document.getElementById('installShortcutBtn');
-const redirectToLinktreeBtn = document.getElementById('redirectToLinktreeBtn');
-const progressBar = document.getElementById('progressBar');
-const progress = document.getElementById('progress');
-const installationInstructions = document.getElementById('installationInstructions');
+// Nome do cache
+const CACHE_NAME = "iasd-leonidas-cache-v1";
 
-// Função para mostrar a barra de progresso
-const showProgressBar = () => {
-  progressBar.style.display = 'block';
-  let width = 0;
-  const interval = setInterval(() => {
-    if (width >= 100) {
-      clearInterval(interval);
-    } else {
-      width++;
-      progress.style.width = `${width}%`;
-    }
-  }, 100); // A barra vai ser preenchida aos poucos (100ms de intervalo)
-};
+// Arquivos para cache offline
+const URLS_TO_CACHE = [
+  "./",
+  "./index.html",
+  "./manifest.json",
+  "./icon-192x192.png",
+  "./icon-512x512.png",
+  "./background-image.png"
+];
 
-// Função para esconder a barra de progresso
-const hideProgressBar = () => {
-  progressBar.style.display = 'none';
-};
+// Instala o service worker e adiciona os arquivos ao cache
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(URLS_TO_CACHE);
+    })
+  );
+});
 
-// Verifica se o navegador suporta o evento beforeinstallprompt
-if ('beforeinstallprompt' in window) {
-  // Escuta o evento antes que o prompt seja exibido automaticamente
-  window.addEventListener('beforeinstallprompt', (event) => {
-    // Previne o comportamento padrão
-    event.preventDefault();
-    deferredPrompt = event;
+// Ativa e limpa caches antigos
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cache) => {
+          if (cache !== CACHE_NAME) {
+            return caches.delete(cache);
+          }
+        })
+      );
+    })
+  );
+});
 
-    // Exibe o botão para o usuário
-    installShortcutBtn.style.display = 'block';
-
-    // Ao clicar no botão, mostra o prompt manualmente
-    installShortcutBtn.addEventListener('click', () => {
-      // Exibe a barra de progresso enquanto o evento é aguardado
-      showProgressBar();
-
-      // Exibe o prompt manualmente
-      deferredPrompt.prompt();
-
-      // Aguarda a resposta do usuário ao prompt
-      deferredPrompt.userChoice.then((choiceResult) => {
-        // Esconde a barra de progresso depois que o prompt for exibido
-        hideProgressBar();
-
-        if (choiceResult.outcome === 'accepted') {
-          installationInstructions.innerText = 'Atalho instalado com sucesso!';
-        } else {
-          installationInstructions.innerText = 'Instalação do atalho recusada.';
-        }
-
-        // Limpa a referência do evento
-        deferredPrompt = null;
-      });
-    });
-  });
-}
-
-// Função para redirecionar o usuário para o Linktree
-redirectToLinktreeBtn.addEventListener('click', () => {
-  window.location.href = 'https://linktr.ee/iasdlm.dc';  // Redireciona para o Linktree
+// Responde às requisições com cache primeiro, depois rede
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    caches.match(event.request).then((response) => {
+      return response || fetch(event.request);
+    })
+  );
 });
