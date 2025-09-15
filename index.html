@@ -3,10 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adicionar Atalho PWA</title>
-  <link rel="manifest" href="https://iasdlmdc.github.io/app-page/manifest.json">
+  <title>IASD Leônidas</title>
+
+  <!-- Manifesto PWA -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Cor da barra de navegação em mobile -->
+  <meta name="theme-color" content="#000000">
+
   <style>
-    /* Estilo geral da página */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -60,11 +65,22 @@
   
   <p>Aqui você terá informações, redes sociais, e muito mais sobre nossa igreja. Adicione o atalho no seu celular ou visite nossa página:</p>
 
-  <button id="installPWABtn">Instalar Atalho</button>
-  <button id="redirectToLinktreeBtn">Ir para o página</button>
+  <button id="redirectToLinktreeBtn">Ir para a página</button>
 
   <div id="backgroundImage"></div>
 
-  <script src="app.js"></script>
+  <script>
+    // Registro do Service Worker
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js")
+        .then(() => console.log("✅ Service Worker registrado"))
+        .catch(err => console.error("❌ Erro ao registrar SW:", err));
+    }
+
+    // Redirecionamento para Linktree
+    document.getElementById('redirectToLinktreeBtn').addEventListener('click', () => {
+      window.location.href = 'https://linktr.ee/iasdlm.dc';
+    });
+  </script>
 </body>
 </html>
