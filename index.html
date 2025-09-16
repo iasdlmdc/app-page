@@ -54,6 +54,31 @@
       height: 350px;
       margin-top: 20px;
     }
+
+    /* Banner instrução iOS */
+    #iosInstallBanner {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #222;
+      color: white;
+      padding: 15px 10px;
+      font-size: 16px;
+      text-align: center;
+      z-index: 1000;
+    }
+
+    #iosInstallBanner button {
+      background: #4caf50;
+      border: none;
+      color: white;
+      padding: 8px 15px;
+      margin-left: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -64,6 +89,12 @@
   <button id="redirectToLinktreeBtn">Ir para o página</button>
 
   <div id="backgroundImage"></div>
+
+  <!-- Banner instrução iOS -->
+  <div id="iosInstallBanner">
+    Para adicionar o atalho, toque no botão <strong>Compartilhar</strong> do Safari e escolha <strong>“Adicionar à Tela de Início”</strong>.
+    <button id="closeIosBannerBtn">Fechar</button>
+  </div>
 
   <script src="app.js"></script>
 </body>
