@@ -1,81 +1,39 @@
-const installPWABtn = document.getElementById('installPWABtn');
-const redirectToLinktreeBtn = document.getElementById('redirectToLinktreeBtn');
+let deferredPrompt;
 
-// Função para detectar o sistema operacional (Android ou iOS)
-const getDeviceInstructions = () => {
-  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-  
-  if (/android/i.test(userAgent)) {
-    return 'Para adicionar à sua tela inicial no Android, clique no ícone de três pontos no canto superior direito do navegador e selecione "Instalar Aplicativo".';
-  } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
-    return 'Para adicionar à sua tela inicial no iOS, clique no botão "Compartilhar" no canto inferior e selecione "Adicionar à Tela de Início".';
-  } else {
-    return 'Para adicionar à sua tela inicial, siga as instruções do seu dispositivo.';
-  }
-};
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js')
+    .then((reg) => {
+      console.log('[SW] Registrado com sucesso:', reg);
+    })
+    .catch((err) => {
+      console.error('[SW] Erro ao registrar:', err);
+    });
+}
 
-// Exibir o modal com as instruções
-const showInstructionsModal = () => {
-  const instructions = getDeviceInstructions();
+window.addEventListener('beforeinstallprompt', (e) => {
+  console.log('Evento beforeinstallprompt disparado');
+  e.preventDefault();
+  deferredPrompt = e;
 
-  // Cria o modal
-  const modal = document.createElement('div');
-  modal.style.position = 'fixed';
-  modal.style.top = '0';
-  modal.style.left = '0';
-  modal.style.width = '100%';
-  modal.style.height = '100%';
-  modal.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-  modal.style.display = 'flex';
-  modal.style.justifyContent = 'center';
-  modal.style.alignItems = 'center';
-  modal.style.zIndex = '1000';
+  const installBtn = document.getElementById('installShortcutBtn');
+  installBtn.style.display = 'inline-block';
 
-  // Cria o conteúdo do modal
-  const modalContent = document.createElement('div');
-  modalContent.style.backgroundColor = 'white';
-  modalContent.style.padding = '20px';
-  modalContent.style.borderRadius = '8px';
-  modalContent.style.maxWidth = '400px';
-  modalContent.style.textAlign = 'center';
+  installBtn.addEventListener('click', () => {
+    installBtn.disabled = true;
+    deferredPrompt.prompt();
 
-  // Adiciona a mensagem ao modal
-  const modalText = document.createElement('p');
-  modalText.textContent = instructions;
-  modalText.style.fontSize = '16px';
-  modalText.style.color = '#333';
-
-  // Cria o botão de fechar
-  const closeButton = document.createElement('button');
-  closeButton.textContent = 'Fechar';
-  closeButton.style.marginTop = '10px';
-  closeButton.style.padding = '10px 20px';
-  closeButton.style.backgroundColor = '#4caf50';
-  closeButton.style.color = 'white';
-  closeButton.style.border = 'none';
-  closeButton.style.borderRadius = '5px';
-  closeButton.style.cursor = 'pointer';
-
-  // Adiciona evento de fechar o modal
-  closeButton.addEventListener('click', () => {
-    modal.style.display = 'none'; // Fecha o modal
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('Usuário aceitou instalar o PWA');
+      } else {
+        console.log('Usuário recusou a instalação');
+      }
+      deferredPrompt = null;
+    });
   });
-
-  // Monta o conteúdo no modal
-  modalContent.appendChild(modalText);
-  modalContent.appendChild(closeButton);
-  modal.appendChild(modalContent);
-
-  // Adiciona o modal à página
-  document.body.appendChild(modal);
-};
-
-// Evento para o botão "Instalar Atalho"
-installPWABtn.addEventListener('click', () => {
-  showInstructionsModal(); // Exibe o modal com as instruções
 });
 
-// Evento para o botão "Ir para o Linktree"
+const redirectToLinktreeBtn = document.getElementById('redirectToLinktreeBtn');
 redirectToLinktreeBtn.addEventListener('click', () => {
-  window.location.href = 'https://linktr.ee/iasdlm.dc';  // Redireciona para o Linktree
+  window.location.href = 'https://linktr.ee/iasdlm.dc';
 });
