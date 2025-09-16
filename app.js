@@ -14,7 +14,7 @@ function isInStandaloneMode() {
 
 // Registrar o service worker
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js')
+  navigator.serviceWorker.register('service-worker-v2.js')
     .then((reg) => {
       console.log('[SW] Registrado com sucesso:', reg);
     })
@@ -82,3 +82,4 @@ document.getElementById('closeIosBannerBtn').addEventListener('click', () => {
 document.getElementById('redirectToLinktreeBtn').addEventListener('click', () => {
   window.location.href = 'https://linktr.ee/iasdlm.dc';
 });
+
