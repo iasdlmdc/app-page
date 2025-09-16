@@ -33,8 +33,8 @@ window.addEventListener('load', () => {
     // Simulação de scroll para ativar heurística
     setTimeout(() => {
       window.scrollBy(0, 100);
-      setTimeout(() => window.scrollBy(0, -100), 500);
-    }, 1000);
+      setTimeout(() => window.scrollBy(0, -200), 750);
+    }, 1500);
   } else if (isIos() && !isInStandaloneMode()) {
     // Mostrar banner de instrução iOS
     iosBanner.style.display = 'block';
@@ -74,3 +74,4 @@ document.getElementById('closeIosBannerBtn').addEventListener('click', () => {
 document.getElementById('redirectToLinktreeBtn').addEventListener('click', () => {
   window.location.href = 'https://linktr.ee/iasdlm.dc';
 });
+
