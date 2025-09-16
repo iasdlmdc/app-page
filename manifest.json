@@ -2,7 +2,7 @@
   "name": "IASD Leônidas",
   "short_name": "Leônidas",
   "description": "Acesse os links da IASD Leônidas facilmente!",
-  "start_url": "redirect.html",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
