@@ -12,7 +12,7 @@ function isInStandaloneMode() {
   return ('standalone' in window.navigator) && window.navigator.standalone;
 }
 
-// Registrar service worker
+// Registrar o service worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js')
     .then((reg) => {
@@ -23,25 +23,7 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-// Detectar sistema e mostrar UI adequada
-window.addEventListener('load', () => {
-  const installBtn = document.getElementById('installShortcutBtn');
-  const iosBanner = document.getElementById('iosInstallBanner');
-
-  if (isAndroid() && !isInStandaloneMode()) {
-    // No Android, vamos aguardar beforeinstallprompt para mostrar o botão
-    // Simulação de scroll para ativar heurística
-    setTimeout(() => {
-      window.scrollBy(0, 100);
-      setTimeout(() => window.scrollBy(0, -200), 750);
-    }, 1500);
-  } else if (isIos() && !isInStandaloneMode()) {
-    // Mostrar banner de instrução iOS
-    iosBanner.style.display = 'block';
-  }
-});
-
-// Botão de instalação para Android
+// Evento beforeinstallprompt (deve estar no escopo global)
 window.addEventListener('beforeinstallprompt', (e) => {
   console.log('[PWA] Evento beforeinstallprompt disparado');
   e.preventDefault();
@@ -65,6 +47,32 @@ window.addEventListener('beforeinstallprompt', (e) => {
   });
 });
 
+// Evento appinstalled
+window.addEventListener('appinstalled', () => {
+  console.log('[PWA] App instalado com sucesso!');
+});
+
+// Detectar sistema e mostrar UI adequada
+window.addEventListener('load', () => {
+  const installBtn = document.getElementById('installShortcutBtn');
+  const iosBanner = document.getElementById('iosInstallBanner');
+
+  if (isAndroid() && !isInStandaloneMode()) {
+    // Simulação de engajamento (scroll + clique)
+    setTimeout(() => {
+      window.scrollBy(0, 200);
+      setTimeout(() => window.scrollBy(0, -200), 750);
+    }, 1500);
+
+    document.body.addEventListener('click', () => {
+      console.log('[PWA] Clique detectado (ajuda na heurística)');
+    }, { once: true });
+
+  } else if (isIos() && !isInStandaloneMode()) {
+    iosBanner.style.display = 'block';
+  }
+});
+
 // Botão para fechar banner iOS
 document.getElementById('closeIosBannerBtn').addEventListener('click', () => {
   document.getElementById('iosInstallBanner').style.display = 'none';
@@ -74,4 +82,3 @@ document.getElementById('closeIosBannerBtn').addEventListener('click', () => {
 document.getElementById('redirectToLinktreeBtn').addEventListener('click', () => {
   window.location.href = 'https://linktr.ee/iasdlm.dc';
 });
-
