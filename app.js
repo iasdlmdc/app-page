@@ -1,5 +1,18 @@
 let deferredPrompt;
 
+function isIos() {
+  return /iphone|ipad|ipod/i.test(navigator.userAgent);
+}
+
+function isAndroid() {
+  return /android/i.test(navigator.userAgent);
+}
+
+function isInStandaloneMode() {
+  return ('standalone' in window.navigator) && window.navigator.standalone;
+}
+
+// Registrar service worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js')
     .then((reg) => {
@@ -10,8 +23,27 @@ if ('serviceWorker' in navigator) {
     });
 }
 
+// Detectar sistema e mostrar UI adequada
+window.addEventListener('load', () => {
+  const installBtn = document.getElementById('installShortcutBtn');
+  const iosBanner = document.getElementById('iosInstallBanner');
+
+  if (isAndroid() && !isInStandaloneMode()) {
+    // No Android, vamos aguardar beforeinstallprompt para mostrar o botão
+    // Simulação de scroll para ativar heurística
+    setTimeout(() => {
+      window.scrollBy(0, 100);
+      setTimeout(() => window.scrollBy(0, -100), 500);
+    }, 1000);
+  } else if (isIos() && !isInStandaloneMode()) {
+    // Mostrar banner de instrução iOS
+    iosBanner.style.display = 'block';
+  }
+});
+
+// Botão de instalação para Android
 window.addEventListener('beforeinstallprompt', (e) => {
-  console.log('Evento beforeinstallprompt disparado');
+  console.log('[PWA] Evento beforeinstallprompt disparado');
   e.preventDefault();
   deferredPrompt = e;
 
@@ -24,16 +56,21 @@ window.addEventListener('beforeinstallprompt', (e) => {
 
     deferredPrompt.userChoice.then((choiceResult) => {
       if (choiceResult.outcome === 'accepted') {
-        console.log('Usuário aceitou instalar o PWA');
+        console.log('[PWA] Usuário aceitou instalar');
       } else {
-        console.log('Usuário recusou a instalação');
+        console.log('[PWA] Usuário recusou a instalação');
       }
       deferredPrompt = null;
     });
   });
 });
 
-const redirectToLinktreeBtn = document.getElementById('redirectToLinktreeBtn');
-redirectToLinktreeBtn.addEventListener('click', () => {
+// Botão para fechar banner iOS
+document.getElementById('closeIosBannerBtn').addEventListener('click', () => {
+  document.getElementById('iosInstallBanner').style.display = 'none';
+});
+
+// Botão para redirecionar
+document.getElementById('redirectToLinktreeBtn').addEventListener('click', () => {
   window.location.href = 'https://linktr.ee/iasdlm.dc';
 });
