@@ -3,7 +3,7 @@
   "short_name": "Leônidas",
   "description": "Acesse os links da IASD Leônidas facilmente!",
   "start_url": "https://linktr.ee/iasdlm.dc",
-  "display": "minimal-ui",
+  "display": "browser",
   "background_color": "#ffffff",
   "theme_color": "#000000",
   "orientation": "portrait",
@@ -20,5 +20,6 @@
     }
   ]
 }
+
 
 
