@@ -82,4 +82,10 @@ document.getElementById('closeIosBannerBtn').addEventListener('click', () => {
 document.getElementById('redirectToLinktreeBtn').addEventListener('click', () => {
   window.location.href = 'https://linktr.ee/iasdlm.dc';
 });
+// Verifica e atualiza o service worker em cada visita
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.ready.then(reg => {
+    reg.update();
+  });
+}
 
