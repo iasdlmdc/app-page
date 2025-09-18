@@ -1,5 +1,6 @@
 let deferredPrompt;
 
+// Funções para verificar sistema operacional
 function isIos() {
   return /iphone|ipad|ipod/i.test(navigator.userAgent);
 }
@@ -23,14 +24,14 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-// Evento beforeinstallprompt (deve estar no escopo global)
+// Evento beforeinstallprompt
 window.addEventListener('beforeinstallprompt', (e) => {
   console.log('[PWA] Evento beforeinstallprompt disparado');
   e.preventDefault();
   deferredPrompt = e;
 
   const installBtn = document.getElementById('installShortcutBtn');
-  installBtn.style.display = 'inline-block';
+  installBtn.style.display = 'inline-block'; // Garantir que o botão sempre apareça
 
   installBtn.addEventListener('click', () => {
     installBtn.disabled = true;
@@ -82,15 +83,10 @@ document.getElementById('closeIosBannerBtn').addEventListener('click', () => {
 document.getElementById('redirectToLinktreeBtn').addEventListener('click', () => {
   window.location.href = 'https://linktr.ee/iasdlm.dc';
 });
+
 // Verifica e atualiza o service worker em cada visita
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.ready.then(reg => {
     reg.update();
   });
 }
-
-
-
-
-
-
