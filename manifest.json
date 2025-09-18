@@ -4,7 +4,7 @@
   "description": "Acesse os links da IASD Leônidas facilmente!",
   "start_url": "https://linktr.ee/iasdlm.dc",
   "scope": "/",
-  "display": "browser",
+  "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
   "orientation": "portrait",
@@ -21,6 +21,7 @@
     }
   ]
 }
+
 
 
 
