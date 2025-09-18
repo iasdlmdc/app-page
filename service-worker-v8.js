@@ -13,7 +13,7 @@ self.addEventListener('fetch', (event) => {
   const requestUrl = event.request.url;
 
   // Se a requisição for para o link externo (Linktree), não deve ser interceptada
-  if (requestUrl.includes('https://linktr.ee/iasdlm.dc')) {
+  if (requestUrl.includes('https://linktr.ee/')) {
     event.respondWith(fetch(event.request));
     return;
   }
