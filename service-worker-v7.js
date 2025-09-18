@@ -8,16 +8,18 @@ self.addEventListener('activate', (event) => {
   return self.clients.claim();
 });
 
-// Não intercepta a requisição para o start_url
+// Interceptando as requisições
 self.addEventListener('fetch', (event) => {
   const requestUrl = event.request.url;
 
-  // Não intercepta o fetch para o start_url externo
-  if (requestUrl === 'https://linktr.ee/iasdlm.dc') {
-    return;  // Deixa o navegador lidar com isso
+  // Permite que o navegador acesse a URL externa sem interceptação
+  if (requestUrl.includes('https://linktr.ee/iasdlm.dc')) {
+    // Não intercepta, deixa o navegador gerenciar a requisição
+    event.respondWith(fetch(event.request));
+    return;
   }
 
-  // Para todas as outras requisições internas, vamos processar como esperado
+  // Para as outras requisições internas, você pode continuar interceptando
   event.respondWith(
     fetch(event.request).catch(() => {
       console.warn('[SW] Falha ao buscar', event.request.url);
