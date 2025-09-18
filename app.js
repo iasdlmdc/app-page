@@ -15,7 +15,7 @@ function isInStandaloneMode() {
 
 // Registrar o service worker
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker-v5.js')
+  navigator.serviceWorker.register('service-worker-v5')
     .then((reg) => {
       console.log('[SW] Registrado com sucesso:', reg);
     })
@@ -90,3 +90,4 @@ if ('serviceWorker' in navigator) {
     reg.update();
   });
 }
+
