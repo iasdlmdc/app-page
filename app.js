@@ -14,11 +14,20 @@ function isAndroid() {
   return /android/i.test(navigator.userAgent);
 }
 
+// Função única de isInStandaloneMode declarada aqui
 function isInStandaloneMode() {
   return (
     window.matchMedia('(display-mode: standalone)').matches ||
     ('standalone' in window.navigator && window.navigator.standalone)
   );
+}
+
+// Se estiver em modo standalone (app aberto via atalho), redireciona para o linktree
+if (isInStandaloneMode()) {
+  window.location.replace("https://linktr.ee/iasdlm.dc");
+} else {
+  // Caso contrário, mostra o conteúdo normal
+  document.getElementById("mainBody").style.display = "block";
 }
 
 // Registrar o service worker
@@ -32,7 +41,7 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-// Mostrar o botão imediatamente no Android
+// Mostrar botão "Instalar Atalho" imediatamente para Android se não estiver em standalone
 window.addEventListener('load', () => {
   if (isAndroid() && !isInStandaloneMode()) {
     installBtn.style.display = 'inline-block';
@@ -43,7 +52,7 @@ window.addEventListener('load', () => {
   }
 });
 
-// Armazena o evento quando ele for disparado
+// Armazena o evento antes da instalação para usar depois
 window.addEventListener('beforeinstallprompt', (e) => {
   console.log('[PWA] Evento beforeinstallprompt disparado');
   e.preventDefault();
@@ -72,12 +81,12 @@ closeIosBannerBtn.addEventListener('click', () => {
   iosBanner.style.display = 'none';
 });
 
-// Redirecionar para Linktree
+// Redirecionar para Linktree no botão
 redirectBtn.addEventListener('click', () => {
   window.location.href = 'https://linktr.ee/iasdlm.dc';
 });
 
-// Atualizar service worker
+// Atualiza o service worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.ready.then(reg => {
     reg.update();
