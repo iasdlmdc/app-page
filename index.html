@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Adicionar Atalho PWA</title>
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#000000" />
@@ -81,11 +81,11 @@
   </style>
 </head>
 
-<body id="mainBody" style="display: none;">
+<body id="mainBody" style="display:none;">
   <h1>Conheça mais sobre a IASD Leônidas Moreira</h1>
   <p>Aqui você terá informações, redes sociais, e muito mais sobre nossa igreja. Adicione o atalho no seu celular ou visite nossa página:</p>
 
-  <button id="installShortcutBtn">Instalar Atalho</button>
+  <button id="installShortcutBtn" style="display:none;">Instalar Atalho</button>
   <button id="redirectToLinktreeBtn">Ir para a página</button>
 
   <div id="backgroundImage"></div>
@@ -95,6 +95,6 @@
     <button id="closeIosBannerBtn">Fechar</button>
   </div>
 
-  <script src="app.js"></script>
+  <script src="app_v2.js"></script>
 </body>
 </html>
