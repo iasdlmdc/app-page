@@ -82,26 +82,22 @@
 </head>
 
 <body id="mainBody" style="display: none;">
-  <!-- Redireciona automaticamente se for aberto como atalho (PWA) -->
   <script>
     const isInStandaloneMode =
       window.matchMedia('(display-mode: standalone)').matches ||
-      window.navigator.standalone === true;
+      ('standalone' in window.navigator && window.navigator.standalone);
 
     if (isInStandaloneMode) {
-      // Redireciona direto ao abrir pelo atalho
       window.location.replace("https://linktr.ee/iasdlm.dc");
     } else {
-      // Exibe o conteúdo da página normalmente (QR Code ou navegador)
       document.getElementById("mainBody").style.display = "block";
     }
   </script>
 
-  <!-- Interface visível apenas em modo navegador -->
   <h1>Conheça mais sobre a IASD Leônidas Moreira</h1>
   <p>Aqui você terá informações, redes sociais, e muito mais sobre nossa igreja. Adicione o atalho no seu celular ou visite nossa página:</p>
 
-  <button id="installShortcutBtn">Instalar Atalho</button>
+  <button id="installShortcutBtn" style="display:none;">Instalar Atalho</button>
   <button id="redirectToLinktreeBtn">Ir para a página</button>
 
   <div id="backgroundImage"></div>
